@@ -2,9 +2,20 @@
   "upstream_repo": "SigmaHQ/sigma",
   "upstream_branch": "master",
   "upstream_commit": "07ec293a51695cb1131a2e05260247872b31e1e1",
-  "fetched_at": "2026-09-29T14:11:16+00:00",
+  "fetched_at": "2026-09-29T14:38:58+00:00",
+  "layout": "platform",
   "rule_files": 3783,
   "indexed_rules": 3783,
+  "rules_per_platform": {
+    "windows": 2875,
+    "cloud": 262,
+    "linux": 248,
+    "web": 145,
+    "application": 101,
+    "macos": 75,
+    "network": 66,
+    "other": 11
+  },
   "include_deprecated": false,
   "license": "Detection Rule License (DRL) 1.1 - https://github.com/SigmaHQ/Detection-Rule-License"
 }
