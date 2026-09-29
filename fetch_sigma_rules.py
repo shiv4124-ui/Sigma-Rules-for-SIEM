@@ -1,13 +1,22 @@
 #!/usr/bin/env python3
 """
-Fetch every Sigma detection rule from SigmaHQ/sigma, sort them into platform folders
-(windows, linux, macos, cloud, network, web, application, other) and build an index.
+Fetch every Sigma rule from SigmaHQ/sigma, sort them into platform folders,
+and build a searchable index.
+
+Output layout:
+  sigma/rules/windows/<category>/...      e.g. windows/process_creation/
+  sigma/rules/linux/<category>/...
+  sigma/rules/macos/<category>/...
+  sigma/rules/cloud/<product>/...         e.g. cloud/aws/, cloud/azure/
+  sigma/rules/network/<product>/...       e.g. network/zeek/, network/dns/
+  sigma/rules/web/<category>/...          e.g. web/webserver/, web/proxy/
+  sigma/rules/application/<product>/...   e.g. application/django/
+  sigma/rules/other/...
 
 Usage:
-  python fetch_sigma_rules.py                    # fetch into ./sigma
-  python fetch_sigma_rules.py --out data/sigma   # custom output dir
+  python fetch_sigma_rules.py                  # fetch into ./sigma
   python fetch_sigma_rules.py --include-deprecated
-  python fetch_sigma_rules.py --force            # re-download even if unchanged
+  python fetch_sigma_rules.py --force          # re-download even if unchanged
 """
 from __future__ import annotations
 
@@ -31,18 +40,46 @@ UPSTREAM_REPO = "SigmaHQ/sigma"
 DEFAULT_BRANCH = "master"
 API = "https://api.github.com"
 TIMEOUT = 120
-ATTACK_ID = re.compile(r"^[tgs]\d{4}", re.IGNORECASE)  # technique/group/software IDs
+ATTACK_ID = re.compile(r"^[tgs]\d{4}", re.IGNORECASE)
 
-# Platform folders the rules are sorted into.
 OS_PLATFORMS = {"windows", "linux", "macos"}
-FOLDER_PLATFORMS = {"windows", "linux", "macos", "cloud", "network", "web", "application"}
-CLOUD_PRODUCTS = {"aws", "azure", "gcp", "m365", "okta", "onelogin", "google_workspace",
-                  "github", "bitbucket", "cisco_duo", "jfrog", "salesforce"}
-NETWORK_PRODUCTS = {"zeek", "cisco", "juniper", "fortios", "fortigate", "huawei", "paloalto",
-                    "checkpoint", "sonicwall", "f5"}
+CLOUD_PRODUCTS = {
+    "aws", "azure", "gcp", "m365", "okta", "onelogin", "google_workspace",
+    "github", "bitbucket", "cisco_duo", "entra", "kubernetes",
+}
+NETWORK_PRODUCTS = {
+    "zeek", "cisco", "fortios", "fortigate", "fortinet", "paloalto",
+    "juniper", "huawei", "checkpoint", "sonicwall",
+}
 NETWORK_CATEGORIES = {"firewall", "dns"}
 WEB_CATEGORIES = {"webserver", "proxy"}
-RULESET_NAMES = {"rules": "core", "deprecated": "deprecated"}
+
+
+def slug(value) -> str:
+    text = str(value or "").strip().lower()
+    return re.sub(r"[^a-z0-9_.-]+", "_", text).strip("_") or "general"
+
+
+def classify(logsource: dict) -> tuple[str, str]:
+    """Return (platform, subfolder) for a rule's logsource."""
+    product = slug(logsource.get("product")) if logsource.get("product") else ""
+    category = slug(logsource.get("category")) if logsource.get("category") else ""
+    service = slug(logsource.get("service")) if logsource.get("service") else ""
+    detail = category or service or "general"
+
+    if product in OS_PLATFORMS:
+        return product, detail
+    if product in CLOUD_PRODUCTS:
+        return "cloud", product
+    if product in NETWORK_PRODUCTS:
+        return "network", product
+    if category in NETWORK_CATEGORIES:
+        return "network", category
+    if category in WEB_CATEGORIES or product in {"apache", "nginx", "iis"}:
+        return "web", category or product
+    if product:
+        return "application", product
+    return "other", detail
 
 
 def session() -> requests.Session:
@@ -72,19 +109,9 @@ def download_zip(s: requests.Session, repo: str, ref: str) -> zipfile.ZipFile:
 def is_rule_path(parts: list[str], include_deprecated: bool) -> bool:
     if len(parts) < 2 or not parts[-1].endswith((".yml", ".yaml")):
         return False
-    top = parts[0]
-    if top.startswith("rules"):
+    if parts[0].startswith("rules"):
         return True
-    return include_deprecated and top == "deprecated"
-
-
-def slug(value) -> str:
-    text = str(value or "").strip().lower()
-    return re.sub(r"[^a-z0-9_.-]+", "_", text) or "generic"
-
-
-def ruleset_name(top: str) -> str:
-    return RULESET_NAMES.get(top, top.replace("rules-", ""))
+    return include_deprecated and parts[0] == "deprecated"
 
 
 def as_list(value) -> list:
@@ -93,96 +120,62 @@ def as_list(value) -> list:
     return value if isinstance(value, list) else [value]
 
 
-def platform_for(parts: list[str], doc: dict) -> tuple[str, str]:
-    """Return (platform, subfolder) for a rule, e.g. ('windows', 'process_creation')."""
-    ls = doc.get("logsource") or {}
-    product = slug(ls.get("product")) if ls.get("product") else ""
-    category = slug(ls.get("category")) if ls.get("category") else ""
-    service = slug(ls.get("service")) if ls.get("service") else ""
-
-    # 1) Operating systems: group by log category/service (process_creation, security, ...)
-    if product in OS_PLATFORMS:
-        return product, category or service or "generic"
-
-    # 2) SigmaHQ already organises core/hunting rules by folder: rules/cloud/aws/..., rules/network/zeek/...
-    folders = parts[1:-1]
-    for i, seg in enumerate(folders):
-        if seg in FOLDER_PLATFORMS:
-            sub = folders[i + 1] if i + 1 < len(folders) else (product or category or "generic")
-            return seg, slug(sub)
-
-    # 3) Fall back to the rule's logsource (mainly emerging-threat rules, which are sorted by year)
-    if product in CLOUD_PRODUCTS:
-        return "cloud", product
-    if product in NETWORK_PRODUCTS or category in NETWORK_CATEGORIES:
-        return "network", product or category
-    if category in WEB_CATEGORIES:
-        return "web", category
-    if product:
-        return "application", product
-    return "other", category or service or "generic"
-
-
-def load_yaml_docs(raw: bytes, name: str) -> list:
+def load_rule(raw: bytes, name: str) -> dict | None:
     try:
-        return list(yaml.safe_load_all(raw.decode("utf-8")))
+        docs = list(yaml.safe_load_all(raw.decode("utf-8")))
     except (yaml.YAMLError, UnicodeDecodeError) as exc:
         print(f"  ! could not parse {name}: {exc}", file=sys.stderr)
-        return []
+        return None
+    return next((d for d in docs if isinstance(d, dict) and d.get("title")), None)
 
 
-def build_entry(doc: dict, path: Path, root: Path, platform: str, ruleset: str, upstream: str) -> dict:
-    logsource = doc.get("logsource") or {}
-    return {
-        "id": doc.get("id", ""),
-        "title": doc.get("title", ""),
-        "platform": platform,
-        "ruleset": ruleset,
-        "status": doc.get("status", ""),
-        "level": doc.get("level", ""),
-        "type": "correlation" if "correlation" in doc else "detection",
-        "product": logsource.get("product", ""),
-        "category": logsource.get("category", ""),
-        "service": logsource.get("service", ""),
-        "tags": as_list(doc.get("tags")),
-        "author": doc.get("author", ""),
-        "date": str(doc.get("date", "")),
-        "modified": str(doc.get("modified", "")),
-        "description": (doc.get("description") or "").strip(),
-        "path": path.relative_to(root).as_posix(),
-        "upstream_path": upstream,
-    }
-
-
-def extract_rules(zf: zipfile.ZipFile, rules_dir: Path, include_deprecated: bool) -> tuple[list[dict], int]:
-    """Write every rule into rules_dir/<platform>/<subfolder>/<file>; return (index entries, file count)."""
+def process(zf: zipfile.ZipFile, out: Path, include_deprecated: bool) -> list[dict]:
+    rules_dir = out / "rules"
     if rules_dir.exists():
-        shutil.rmtree(rules_dir)  # start clean so rules removed upstream disappear here too
-    entries = []
-    count = 0
-    for info in sorted(zf.infolist(), key=lambda i: i.filename):
+        shutil.rmtree(rules_dir)  # clean slate so rules removed upstream disappear here too
+
+    entries, used = [], set()
+    for info in zf.infolist():
         if info.is_dir():
             continue
-        parts = info.filename.split("/")[1:]  # drop the "sigma-<ref>/" root folder
+        parts = info.filename.split("/")[1:]  # drop "sigma-<sha>/" root folder
         if not is_rule_path(parts, include_deprecated):
             continue
         raw = zf.read(info)
-        upstream = "/".join(parts)
-        docs = load_yaml_docs(raw, upstream)
-        doc = next((d for d in docs if isinstance(d, dict) and d.get("title")), None)
+        doc = load_rule(raw, "/".join(parts))
+        logsource = (doc or {}).get("logsource") or {}
+        platform, sub = classify(logsource)
 
-        platform, sub = platform_for(parts, doc or {})
-        ruleset = ruleset_name(parts[0])
         dest = rules_dir / platform / sub / parts[-1]
-        if dest.exists():  # same file name from another rule set -> keep both
-            dest = dest.with_name(f"{ruleset}__{parts[-1]}")
+        if dest in used:  # same filename from two rule sets -> keep both
+            dest = dest.with_name(f"{dest.stem}_{slug(parts[0])}{dest.suffix}")
+        used.add(dest)
         dest.parent.mkdir(parents=True, exist_ok=True)
         dest.write_bytes(raw)
-        count += 1
 
-        if doc:
-            entries.append(build_entry(doc, dest, rules_dir.parent, platform, ruleset, upstream))
-    return entries, count
+        if doc is None:
+            continue
+        entries.append({
+            "id": doc.get("id", ""),
+            "title": doc.get("title", ""),
+            "platform": platform,
+            "subfolder": sub,
+            "ruleset": parts[0],
+            "status": doc.get("status", ""),
+            "level": doc.get("level", ""),
+            "type": "correlation" if "correlation" in doc else "detection",
+            "product": logsource.get("product", ""),
+            "category": logsource.get("category", ""),
+            "service": logsource.get("service", ""),
+            "tags": as_list(doc.get("tags")),
+            "author": doc.get("author", ""),
+            "date": str(doc.get("date", "")),
+            "modified": str(doc.get("modified", "")),
+            "description": (doc.get("description") or "").strip(),
+            "path": dest.relative_to(out).as_posix(),
+            "upstream_path": "/".join(parts),
+        })
+    return entries
 
 
 def write_index(entries: list[dict], out: Path) -> None:
@@ -203,12 +196,58 @@ def write_index(entries: list[dict], out: Path) -> None:
     stats = {
         "total_rules": len(entries),
         "by_platform": Counter(e["platform"] for e in entries),
+        "by_platform_subfolder": Counter(f'{e["platform"]}/{e["subfolder"]}' for e in entries),
         "by_ruleset": Counter(e["ruleset"] for e in entries),
         "by_level": Counter(e["level"] or "unset" for e in entries),
         "by_status": Counter(e["status"] or "unset" for e in entries),
-        "by_product": Counter(e["product"] or "unset" for e in entries),
         "by_type": Counter(e["type"] for e in entries),
         "top_attack_tactics": dict(tactics.most_common(20)),
     }
     stats = {k: dict(sorted(v.items(), key=lambda kv: -kv[1])) if isinstance(v, Counter) else v
-             for k, v in
+             for k, v in stats.items()}
+    (out / "stats.json").write_text(json.dumps(stats, indent=2), encoding="utf-8")
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser(description="Fetch all Sigma rules from SigmaHQ, sorted by platform.")
+    ap.add_argument("--out", default="sigma", help="output directory (default: sigma)")
+    ap.add_argument("--repo", default=UPSTREAM_REPO)
+    ap.add_argument("--branch", default=DEFAULT_BRANCH)
+    ap.add_argument("--include-deprecated", action="store_true")
+    ap.add_argument("--force", action="store_true", help="download even if upstream is unchanged")
+    args = ap.parse_args()
+
+    out = Path(args.out)
+    out.mkdir(parents=True, exist_ok=True)
+    meta_file = out / "metadata.json"
+    s = session()
+
+    sha = latest_commit(s, args.repo, args.branch)
+    previous = json.loads(meta_file.read_text()) if meta_file.exists() else {}
+    if (not args.force and previous.get("upstream_commit") == sha
+            and previous.get("include_deprecated") == args.include_deprecated
+            and previous.get("layout") == "platform"):
+        print(f"Already up to date with {args.repo}@{sha[:10]}. Nothing to do.")
+        return 0
+
+    zf = download_zip(s, args.repo, sha)
+    entries = process(zf, out, args.include_deprecated)
+    write_index(entries, out)
+
+    meta = {
+        "upstream_repo": args.repo,
+        "upstream_branch": args.branch,
+        "upstream_commit": sha,
+        "fetched_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "indexed_rules": len(entries),
+        "include_deprecated": args.include_deprecated,
+        "layout": "platform",
+        "license": "Detection Rule License (DRL) 1.1 - https://github.com/SigmaHQ/Detection-Rule-License",
+    }
+    meta_file.write_text(json.dumps(meta, indent=2), encoding="utf-8")
+    print(f"Sorted {len(entries)} rules from {args.repo}@{sha[:10]} into {out}/rules/<platform>/")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
