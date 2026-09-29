@@ -41,16 +41,19 @@ jobs:
             python fetch_sigma_rules.py
           fi
 
+      - name: Convert to expressions
+        run: python convert_expressions.py
+
       - name: Commit changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A sigma
           if git diff --cached --quiet; then
-            echo "No rule changes."
+            echo "No changes."
             exit 0
           fi
           COUNT=$(python -c "import json;print(json.load(open('sigma/metadata.json'))['indexed_rules'])")
           SHA=$(python -c "import json;print(json.load(open('sigma/metadata.json'))['upstream_commit'][:10])")
-          git commit -m "Sync Sigma rules: ${COUNT} rules @ SigmaHQ/sigma ${SHA}"
+          git commit -m "Sync Sigma rules + expressions: ${COUNT} rules @ SigmaHQ/sigma ${SHA}"
           git push
