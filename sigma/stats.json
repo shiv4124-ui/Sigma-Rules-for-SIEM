@@ -1,0 +1,76 @@
+{
+  "total_rules": 3783,
+  "by_folder": {
+    "rules": 3144,
+    "rules-emerging-threats": 473,
+    "rules-threat-hunting": 140,
+    "rules-placeholder": 23,
+    "rules-compliance": 3
+  },
+  "by_level": {
+    "high": 1727,
+    "medium": 1509,
+    "low": 342,
+    "critical": 177,
+    "informational": 28
+  },
+  "by_status": {
+    "test": 3343,
+    "experimental": 336,
+    "stable": 104
+  },
+  "by_product": {
+    "windows": 2875,
+    "linux": 248,
+    "unset": 169,
+    "azure": 131,
+    "macos": 75,
+    "aws": 58,
+    "gcp": 26,
+    "zeek": 24,
+    "okta": 24,
+    "opencanary": 24,
+    "m365": 21,
+    "cisco": 17,
+    "rpc_firewall": 17,
+    "kubernetes": 16,
+    "github": 15,
+    "bitbucket": 14,
+    "fortigate": 7,
+    "jvm": 5,
+    "qualys": 2,
+    "paloalto": 2,
+    "spring": 2,
+    "onelogin": 2,
+    "fortios": 1,
+    "django": 1,
+    "nodejs": 1,
+    "python": 1,
+    "ruby_on_rails": 1,
+    "sql": 1,
+    "velocity": 1,
+    "huawei": 1,
+    "juniper": 1
+  },
+  "by_type": {
+    "detection": 3783
+  },
+  "top_attack_tactics": {
+    "stealth": 1094,
+    "execution": 1051,
+    "persistence": 864,
+    "privilege-escalation": 772,
+    "defense-impairment": 415,
+    "credential-access": 394,
+    "initial-access": 354,
+    "command-and-control": 309,
+    "discovery": 266,
+    "lateral-movement": 171,
+    "impact": 167,
+    "collection": 126,
+    "exfiltration": 92,
+    "resource-development": 39,
+    "reconnaissance": 26,
+    "ds0005": 1
+  }
+}
