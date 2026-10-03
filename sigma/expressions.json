@@ -3426,7 +3426,7 @@
     "level": "high",
     "status": "test",
     "path": "rules/cloud/azure/azure_subscription_permissions_elevation_via_auditlogs.yml",
-    "expression": "(equalsAny(category, 'Administrative') and equalsAny(operation_name, 'Assigns the caller to user access admin'))",
+    "expression": "(equalsAny(category, 'AzureRBACRoleManagementElevateAccess') and equalsAny(activity_display_name, 'User has elevated their access to User Access Administrator for their Azure Resources'))",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
@@ -10201,7 +10201,7 @@
     "level": "high",
     "status": "test",
     "path": "rules/web/proxy_generic/proxy_ua_bitsadmin_susp_tld.yml",
-    "expression": "startsWithAny(c_useragent, 'Microsoft BITS/') and not endsWithAny(cs_host, '.com', '.net', '.org', '.scdn.co', '.sfx.ms')",
+    "expression": "startsWithAny(c_useragent, 'Microsoft BITS/') and not endsWithAny(cs_host, '.com', '.microsoft', '.net', '.org', '.scdn.co', '.sfx.ms')",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
@@ -16253,6 +16253,18 @@
     "status": "test",
     "path": "rules/windows/file_event/file_event_win_writing_local_admin_share.yml",
     "expression": "containAll(file_path, '\\\\\\\\\\\\\\\\127.0.0', '\\\\ADMIN$\\\\')",
+    "keywords": [],
+    "keywords_regex": "",
+    "conversion": "ok"
+  },
+  {
+    "id": "2f400434-01e1-416b-b52c-bb5bfbb9eb78",
+    "title": "Potential WSL Binary Modification from Installed Location",
+    "platform": "windows",
+    "level": "medium",
+    "status": "experimental",
+    "path": "rules/windows/file_event/file_event_win_wsl_binary_modification.yml",
+    "expression": "(endsWithAny(file_path, '\\\\wsl.exe') and (containAny(file_path, ':\\\\Program files\\\\wsl\\\\', ':\\\\Program files\\\\WindowsApps\\\\MicrosoftCorporationII.WindowsSubsystemForLinux_') or containAll(file_path, ':\\\\Users\\\\', '\\\\AppData\\\\Local\\\\Microsoft\\\\WindowsApps\\\\'))) and not (equalsAny(process_path, 'C:\\\\Windows\\\\System32\\\\msiexec.exe', 'C:\\\\Windows\\\\SysWOW64\\\\msiexec.exe') or (equalsAny(process_path, 'C:\\\\Windows\\\\System32\\\\svchost.exe') and containAny(file_path, '\\\\WindowsApps\\\\')))",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
@@ -28875,7 +28887,7 @@
     "level": "high",
     "status": "experimental",
     "path": "rules/windows/process_creation/proc_creation_win_powershell_kerberos_kerberos_ticket_request_via_cli.yml",
-    "expression": "((endsWithAny(process_path, '\\\\powershell.exe', '\\\\pwsh.exe') or equalsAny(original_file_name, 'powershell.exe', 'pwsh.dll')) and containAll(command_line, 'System.IdentityModel.Tokens.KerberosRequestorSecurityToken', '.GetRequest()'))",
+    "expression": "((endsWithAny(process_path, '\\\\powershell.exe', '\\\\pwsh.exe') or equalsAny(original_file_name, 'powershell.exe', 'pwsh.dll')) and containAny(command_line, 'System.IdentityModel.Tokens.KerberosRequestorSecurityToken'))",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
@@ -31527,7 +31539,7 @@
     "level": "high",
     "status": "experimental",
     "path": "rules/windows/process_creation/proc_creation_win_renamed_schtasks_execution.yml",
-    "expression": "((containAny(command_line, ' /create ', ' /delete ', ' /query ', ' /change ', ' /run ', ' /end ') and containAny(command_line, ' /tn ', ' /tr ', ' /sc ', ' /st ', ' /ru ', ' /fo ')) and not containAny(command_line, 'schtasks')) or (equalsAny(original_file_name, 'schtasks.exe') and not endsWithAny(process_path, '\\\\schtasks.exe'))",
+    "expression": "((containAny(command_line, ' /create ', ' /delete ', ' /query ', ' /change ', ' /run ', ' /end ') and containAny(command_line, ' /tn ', ' /tr ', ' /sc ', ' /st ', ' /ru ', ' /fo ')) and not containAny(command_line, 'schtasks') and not containAll(command_line, 'openfiles', ' /query ', ' /fo')) or (equalsAny(original_file_name, 'schtasks.exe') and not endsWithAny(process_path, '\\\\schtasks.exe'))",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
@@ -36489,6 +36501,18 @@
     "conversion": "ok"
   },
   {
+    "id": "88d306e9-8e2d-4025-9768-28757d2732db",
+    "title": "Suspicious WSL Binary Hijack via Proxy Execution",
+    "platform": "windows",
+    "level": "high",
+    "status": "experimental",
+    "path": "rules/windows/process_creation/proc_creation_win_wsl_binary_hijack_execution.yml",
+    "expression": "(equalsAny(parent_process_path, 'C:\\\\Windows\\\\System32\\\\wsl.exe') and endsWithAny(process_path, '\\\\wsl.exe')) and not (equalsAny(process_path, 'C:\\\\Windows\\\\System32\\\\wsl.exe', 'C:\\\\Program Files\\\\WSL\\\\wsl.exe') or startsWithAny(process_path, 'C:\\\\Windows\\\\WinSxS\\\\amd64_microsoft-windows-lxss-wsl_', 'C:\\\\Windows\\\\WinSxS\\\\arm64_microsoft-windows-lxss-wsl_', 'C:\\\\Program Files\\\\WindowsApps\\\\MicrosoftCorporationII.WindowsSubsystemForLinux') or (startsWithAny(process_path, 'C:\\\\Users\\\\') and containAny(process_path, '\\\\AppData\\\\Local\\\\Microsoft\\\\WindowsApps\\\\')))",
+    "keywords": [],
+    "keywords_regex": "",
+    "conversion": "ok"
+  },
+  {
     "id": "2267fe65-0681-42ad-9a6d-46553d3f3480",
     "title": "WSL Child Process Anomaly",
     "platform": "windows",
@@ -36496,6 +36520,18 @@
     "status": "test",
     "path": "rules/windows/process_creation/proc_creation_win_wsl_child_processes_anomalies.yml",
     "expression": "endsWithAny(parent_process_path, '\\\\wsl.exe', '\\\\wslhost.exe') and (endsWithAny(process_path, '\\\\calc.exe', '\\\\cmd.exe', '\\\\cscript.exe', '\\\\mshta.exe', '\\\\powershell.exe', '\\\\pwsh.exe', '\\\\regsvr32.exe', '\\\\rundll32.exe', '\\\\wscript.exe') or containAny(process_path, '\\\\AppData\\\\Local\\\\Temp\\\\', 'C:\\\\Users\\\\Public\\\\', 'C:\\\\Windows\\\\Temp\\\\', 'C:\\\\Temp\\\\', '\\\\Downloads\\\\', '\\\\Desktop\\\\'))",
+    "keywords": [],
+    "keywords_regex": "",
+    "conversion": "ok"
+  },
+  {
+    "id": "f9f62824-de4e-40ca-afe7-8358f76a876d",
+    "title": "Suspicious WSL InstallLocation Registry Key Modification Via CommandLine",
+    "platform": "windows",
+    "level": "high",
+    "status": "experimental",
+    "path": "rules/windows/process_creation/proc_creation_win_wsl_installlocation_modification_via_cmdline.yml",
+    "expression": "((endsWithAny(process_path, '\\\\powershell.exe', '\\\\pwsh.exe', '\\\\reg.exe') or equalsAny(original_file_name, 'powershell.exe', 'pwsh.dll', 'reg.exe')) and containAny(command_line, ' add ', 'New-ItemProperty', 'Set-ItemProperty', 'sp ') and containAny(command_line, '\\\\Lxss\\\\MSI', '/Lxss/MSI') and containAny(command_line, 'InstallLocation'))",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
@@ -36520,6 +36556,18 @@
     "status": "experimental",
     "path": "rules/windows/process_creation/proc_creation_win_wsl_kali_linux_usage.yml",
     "expression": "((containAll(process_path, ':\\\\Users\\\\', '\\\\AppData\\\\Local\\\\packages\\\\KaliLinux') or containAll(process_path, ':\\\\Users\\\\', '\\\\AppData\\\\Local\\\\Microsoft\\\\WindowsApps\\\\kali.exe')) or (containAny(process_path, ':\\\\Program Files\\\\WindowsApps\\\\KaliLinux.') and endsWithAny(process_path, '\\\\kali.exe'))) or (endsWithAny(parent_process_path, '\\\\wsl.exe', '\\\\wslhost.exe') and (containAny(process_path, '\\\\kali.exe', '\\\\KaliLinux') or containAny(command_line, 'Kali.exe', 'Kali-linux', 'kalilinux'))) and not containAny(command_line, ' -i ', ' --install ', ' --unregister ')",
+    "keywords": [],
+    "keywords_regex": "",
+    "conversion": "ok"
+  },
+  {
+    "id": "530576ee-3b62-4bce-9a03-9aac6c61788a",
+    "title": "Suspicious WSL Binary Masquerading",
+    "platform": "windows",
+    "level": "high",
+    "status": "experimental",
+    "path": "rules/windows/process_creation/proc_creation_win_wsl_masquerading.yml",
+    "expression": "endsWithAny(process_path, '\\\\wsl.exe') and not (equalsAny(original_file_name, 'wsl.exe') or isNull(original_file_name))",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
@@ -36592,6 +36640,18 @@
     "status": "test",
     "path": "rules/windows/process_creation/proc_creation_win_wusa_susp_parent_execution.yml",
     "expression": "endsWithAny(process_path, '\\\\wusa.exe') and (containAny(parent_process_path, ':\\\\Perflogs\\\\', ':\\\\Users\\\\Public\\\\', ':\\\\Windows\\\\Temp\\\\', '\\\\Appdata\\\\Local\\\\Temp\\\\', '\\\\Temporary Internet') or (containAll(parent_process_path, ':\\\\Users\\\\', '\\\\Favorites\\\\') or containAll(parent_process_path, ':\\\\Users\\\\', '\\\\Favourites\\\\') or containAll(parent_process_path, ':\\\\Users\\\\', '\\\\Contacts\\\\') or containAll(parent_process_path, ':\\\\Users\\\\', '\\\\Pictures\\\\'))) and not containAny(command_line, '.msu')",
+    "keywords": [],
+    "keywords_regex": "",
+    "conversion": "ok"
+  },
+  {
+    "id": "74697c29-1b30-4e1f-a517-33574061821d",
+    "title": "Uncommon Child Process Spawned From XBootMgrSleep.EXE",
+    "platform": "windows",
+    "level": "medium",
+    "status": "experimental",
+    "path": "rules/windows/process_creation/proc_creation_win_xbootmgrsleep_uncommon_child_process.yml",
+    "expression": "endsWithAny(parent_process_path, '\\\\xbootmgrsleep.exe') and not equalsAny(process_path, 'C:\\\\Program Files (x86)\\\\Windows Kits\\\\10\\\\Windows Performance Toolkit\\\\xbootmgr.exe')",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
@@ -38355,7 +38415,7 @@
     "level": "high",
     "status": "test",
     "path": "rules/windows/ps_script/posh_ps_request_kerberos_ticket.yml",
-    "expression": "containAll(script_block_text, 'System.IdentityModel.Tokens.KerberosRequestorSecurityToken', '.GetRequest()')",
+    "expression": "containAny(script_block_text, 'System.IdentityModel.Tokens.KerberosRequestorSecurityToken')",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
@@ -42676,6 +42736,18 @@
     "status": "test",
     "path": "rules/windows/registry_set/registry_set_winlogon_notify_key.yml",
     "expression": "(endsWithAny(registry_key, '\\\\SOFTWARE\\\\Microsoft\\\\Windows NT\\\\CurrentVersion\\\\Winlogon\\\\Notify\\\\logon') and endsWithAny(registry_value, '.dll'))",
+    "keywords": [],
+    "keywords_regex": "",
+    "conversion": "ok"
+  },
+  {
+    "id": "83475063-b1c8-4774-9568-69bbda71a539",
+    "title": "Potential WSL InstallLocation Registry Key Modification",
+    "platform": "windows",
+    "level": "medium",
+    "status": "experimental",
+    "path": "rules/windows/registry_set/registry_set_wsl_installlocation_registry_key_modification.yml",
+    "expression": "containAny(registry_key, '\\\\Lxss\\\\MSI\\\\InstallLocation') and not ((equalsAny(registry_value, 'C:\\\\Program Files\\\\WSL', '%ProgramFiles%\\\\WSL') or containAny(registry_value, ':\\\\Program Files\\\\WindowsApps\\\\MicrosoftCorporationII.WindowsSubsystemForLinux_', '\\\\AppData\\\\Local\\\\Microsoft\\\\WindowsApps', '%ProgramFiles%\\\\WindowsApps\\\\MicrosoftCorporationII.WindowsSubsystemForLinux_')) or equalsAny(process_path, 'C:\\\\Windows\\\\System32\\\\msiexec.exe', 'C:\\\\Windows\\\\SysWOW64\\\\msiexec.exe'))",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"

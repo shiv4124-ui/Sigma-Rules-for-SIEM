@@ -6554,7 +6554,7 @@
     ],
     "author": "Austin Songer @austinsonger",
     "date": "2021-11-26",
-    "modified": "2022-12-25",
+    "modified": "2026-09-26",
     "description": "Detects when a user has been elevated to manage all Azure Subscriptions.\nThis change should be investigated immediately if it isn't planned.\nThis setting could allow an attacker access to Azure subscriptions in your environment.",
     "path": "rules/cloud/azure/azure_subscription_permissions_elevation_via_auditlogs.yml",
     "upstream_path": "rules/cloud/azure/audit_logs/azure_subscription_permissions_elevation_via_auditlogs.yml"
@@ -18794,7 +18794,7 @@
     ],
     "author": "Florian Roth (Nextron Systems), Tim Shelton",
     "date": "2019-03-07",
-    "modified": "2023-05-17",
+    "modified": "2026-09-30",
     "description": "Detects Bitsadmin connections to domains with uncommon TLDs",
     "path": "rules/web/proxy_generic/proxy_ua_bitsadmin_susp_tld.yml",
     "upstream_path": "rules/web/proxy_generic/proxy_ua_bitsadmin_susp_tld.yml"
@@ -29908,6 +29908,29 @@
     "description": "Aversaries may use to interact with a remote network share using Server Message Block (SMB).\nThis technique is used by post-exploitation frameworks.",
     "path": "rules/windows/file_event/file_event_win_writing_local_admin_share.yml",
     "upstream_path": "rules/windows/file/file_event/file_event_win_writing_local_admin_share.yml"
+  },
+  {
+    "id": "2f400434-01e1-416b-b52c-bb5bfbb9eb78",
+    "title": "Potential WSL Binary Modification from Installed Location",
+    "platform": "windows",
+    "ruleset": "core",
+    "status": "experimental",
+    "level": "medium",
+    "type": "detection",
+    "product": "windows",
+    "category": "file_event",
+    "service": "",
+    "tags": [
+      "attack.stealth",
+      "attack.t1036.005",
+      "attack.t1218"
+    ],
+    "author": "Liran Ravich, Swachchhanda Shrawan Poudel (Nextron Systems)",
+    "date": "2026-05-05",
+    "modified": "",
+    "description": "Detects the modification of the wsl.exe binary from its installed location.\nAttackers can replace the legitimate wsl.exe binary with a malicious payload in its place, which is then executed when the user runs WSL, acting as a proxy execution and defense evasion technique.",
+    "path": "rules/windows/file_event/file_event_win_wsl_binary_modification.yml",
+    "upstream_path": "rules/windows/file/file_event/file_event_win_wsl_binary_modification.yml"
   },
   {
     "id": "ab90dab8-c7da-4010-9193-563528cfa347",
@@ -54327,8 +54350,8 @@
     ],
     "author": "Swachchhanda Shrawan Poudel (Nextron Systems)",
     "date": "2025-11-18",
-    "modified": "",
-    "description": "Detects suspicious Kerberos ticket requests via command line using System.IdentityModel.Tokens.KerberosRequestorSecurityToken class.\nThreat actors may use command line interfaces to request Kerberos tickets for service accounts in order to\nperform offline password cracking attacks commonly known as Kerberoasting or other Kerberos ticket abuse\ntechniques like silver ticket attacks.",
+    "modified": "2026-09-14",
+    "description": "Detects suspicious Kerberos ticket requests via command line using System.IdentityModel.Tokens.KerberosRequestorSecurityToken class.\nThreat actors may use command line interfaces to request Kerberos tickets for service accounts in order to\nperform offline password cracking attacks commonly known as Kerberoasting or other Kerberos ticket abuse\ntechniques like silver ticket attacks. Encoded commands will not surface the class name, so the ps_script\nrule covers that instead.",
     "path": "rules/windows/process_creation/proc_creation_win_powershell_kerberos_kerberos_ticket_request_via_cli.yml",
     "upstream_path": "rules/windows/process_creation/proc_creation_win_powershell_kerberos_kerberos_ticket_request_via_cli.yml"
   },
@@ -59334,7 +59357,7 @@
     ],
     "author": "Swachchhanda Shrawan Poudel (Nextron Systems)",
     "date": "2025-11-27",
-    "modified": "",
+    "modified": "2026-10-02",
     "description": "Detects the execution of renamed schtasks.exe binary, which is a legitimate Windows utility used for scheduling tasks.\nOne of the very common persistence techniques is schedule malicious tasks using schtasks.exe.\nSince, it is heavily abused, it is also heavily monitored by security products. To evade detection, threat actors may rename the schtasks.exe binary to schedule their malicious tasks.",
     "path": "rules/windows/process_creation/proc_creation_win_renamed_schtasks_execution.yml",
     "upstream_path": "rules/windows/process_creation/proc_creation_win_renamed_schtasks_execution.yml"
@@ -68789,6 +68812,29 @@
     "upstream_path": "rules-threat-hunting/windows/process_creation/proc_creation_win_wsl_arbitrary_command_execution.yml"
   },
   {
+    "id": "88d306e9-8e2d-4025-9768-28757d2732db",
+    "title": "Suspicious WSL Binary Hijack via Proxy Execution",
+    "platform": "windows",
+    "ruleset": "core",
+    "status": "experimental",
+    "level": "high",
+    "type": "detection",
+    "product": "windows",
+    "category": "process_creation",
+    "service": "",
+    "tags": [
+      "attack.stealth",
+      "attack.t1036.005",
+      "attack.t1218"
+    ],
+    "author": "Swachchhanda Shrawan Poudel (Nextron Systems)",
+    "date": "2026-05-05",
+    "modified": "",
+    "description": "Detects C:\\Windows\\System32\\wsl.exe spawning a child wsl.exe process from outside the legitimate WSL install locations.\nWhen WSL or bash is invoked, the System32 stub (wsl.exe) looks up the InstallLocation registry key and executes the wsl.exe found there.\nAn attacker who modifies InstallLocation to a controlled path causes the stub to transparently proxy execution to a malicious payload,\nwhich then appears as a wsl.exe child of the legitimate System32 stub.",
+    "path": "rules/windows/process_creation/proc_creation_win_wsl_binary_hijack_execution.yml",
+    "upstream_path": "rules/windows/process_creation/proc_creation_win_wsl_binary_hijack_execution.yml"
+  },
+  {
     "id": "2267fe65-0681-42ad-9a6d-46553d3f3480",
     "title": "WSL Child Process Anomaly",
     "platform": "windows",
@@ -68811,6 +68857,31 @@
     "description": "Detects uncommon or suspicious child processes spawning from a WSL process. This could indicate an attempt to evade parent/child relationship detections or persistence attempts via cron using WSL",
     "path": "rules/windows/process_creation/proc_creation_win_wsl_child_processes_anomalies.yml",
     "upstream_path": "rules/windows/process_creation/proc_creation_win_wsl_child_processes_anomalies.yml"
+  },
+  {
+    "id": "f9f62824-de4e-40ca-afe7-8358f76a876d",
+    "title": "Suspicious WSL InstallLocation Registry Key Modification Via CommandLine",
+    "platform": "windows",
+    "ruleset": "core",
+    "status": "experimental",
+    "level": "high",
+    "type": "detection",
+    "product": "windows",
+    "category": "process_creation",
+    "service": "",
+    "tags": [
+      "attack.stealth",
+      "attack.defense-impairment",
+      "attack.persistence",
+      "attack.t1112",
+      "attack.t1218"
+    ],
+    "author": "Swachchhanda Shrawan Poudel (Nextron Systems)",
+    "date": "2026-05-05",
+    "modified": "",
+    "description": "Detects the use of reg.exe or PowerShell to modify the WSL InstallLocation registry key via command-line arguments.\nLegitimate modifications to this key are performed exclusively by the Windows Installer (msiexec.exe) during WSL package installation or update.\nManual use of reg.exe or PowerShell to set this value strongly indicates an attempt to redirect WSL execution to a malicious binary.",
+    "path": "rules/windows/process_creation/proc_creation_win_wsl_installlocation_modification_via_cmdline.yml",
+    "upstream_path": "rules/windows/process_creation/proc_creation_win_wsl_installlocation_modification_via_cmdline.yml"
   },
   {
     "id": "eca8ae39-5c3c-4321-b538-9e64fe25822e",
@@ -68855,6 +68926,29 @@
     "description": "Detects the use of Kali Linux through Windows Subsystem for Linux",
     "path": "rules/windows/process_creation/proc_creation_win_wsl_kali_linux_usage.yml",
     "upstream_path": "rules/windows/process_creation/proc_creation_win_wsl_kali_linux_usage.yml"
+  },
+  {
+    "id": "530576ee-3b62-4bce-9a03-9aac6c61788a",
+    "title": "Suspicious WSL Binary Masquerading",
+    "platform": "windows",
+    "ruleset": "core",
+    "status": "experimental",
+    "level": "high",
+    "type": "detection",
+    "product": "windows",
+    "category": "process_creation",
+    "service": "",
+    "tags": [
+      "attack.stealth",
+      "attack.t1036.005",
+      "attack.t1218"
+    ],
+    "author": "Swachchhanda Shrawan Poudel (Nextron Systems)",
+    "date": "2026-05-05",
+    "modified": "",
+    "description": "Detects execution of masqueraded wsl.exe binary.\nAttackers can rename a malicious payload to wsl.exe to masquerade as the legitimate Windows Subsystem for Linux binary,\nbypassing detection based on image name alone and abusing user trust in the WSL process name.",
+    "path": "rules/windows/process_creation/proc_creation_win_wsl_masquerading.yml",
+    "upstream_path": "rules/windows/process_creation/proc_creation_win_wsl_masquerading.yml"
   },
   {
     "id": "ed825c86-c009-4014-b413-b76003e33d35",
@@ -68987,6 +69081,28 @@
     "description": "Detects execution of the \"wusa.exe\" (Windows Update Standalone Installer) utility by a parent process that is located in a suspicious location.\nAttackers could instantiate an instance of \"wusa.exe\" in order to bypass User Account Control (UAC). They can duplicate the access token from \"wusa.exe\" to gain elevated privileges.",
     "path": "rules/windows/process_creation/proc_creation_win_wusa_susp_parent_execution.yml",
     "upstream_path": "rules/windows/process_creation/proc_creation_win_wusa_susp_parent_execution.yml"
+  },
+  {
+    "id": "74697c29-1b30-4e1f-a517-33574061821d",
+    "title": "Uncommon Child Process Spawned From XBootMgrSleep.EXE",
+    "platform": "windows",
+    "ruleset": "core",
+    "status": "experimental",
+    "level": "medium",
+    "type": "detection",
+    "product": "windows",
+    "category": "process_creation",
+    "service": "",
+    "tags": [
+      "attack.stealth",
+      "attack.t1202"
+    ],
+    "author": "Diablo Research",
+    "date": "2026-09-27",
+    "modified": "",
+    "description": "Detects a process other than XBootMgr.exe spawned by XBootMgrSleep.exe.\nXBootMgrSleep.exe is a Microsoft-signed Windows Performance Toolkit binary that can execute an arbitrary executable after a delay.",
+    "path": "rules/windows/process_creation/proc_creation_win_xbootmgrsleep_uncommon_child_process.yml",
+    "upstream_path": "rules/windows/process_creation/proc_creation_win_xbootmgrsleep_uncommon_child_process.yml"
   },
   {
     "id": "193d5ccd-6f59-40c6-b5b0-8e32d5ddd3d1",
@@ -72383,8 +72499,8 @@
     ],
     "author": "frack113",
     "date": "2021-12-28",
-    "modified": "2025-11-18",
-    "description": "Detects PowerShell scripts that utilize native PowerShell Identity modules to request Kerberos tickets.\nThis behavior is typically seen during a Kerberos or silver ticket attack. A successful execution will output the SPNs for the endpoint in question.",
+    "modified": "2026-09-14",
+    "description": "Detects PowerShell scripts that utilize native PowerShell Identity modules to request Kerberos tickets.\nThis behavior is typically seen during a Kerberoasting or silver ticket attack. A TGS request is issued by\nthe KerberosRequestorSecurityToken constructor, resulting tickets are cached in LSA and become\nextractable by other tools later on.",
     "path": "rules/windows/ps_script/posh_ps_request_kerberos_ticket.yml",
     "upstream_path": "rules/windows/powershell/powershell_script/posh_ps_request_kerberos_ticket.yml"
   },
@@ -80581,6 +80697,31 @@
     "description": "Adversaries may abuse features of Winlogon to execute DLLs and/or executables when a user logs in.\nWinlogon.exe is a Windows component responsible for actions at logon/logoff as well as the secure attention sequence (SAS) triggered by Ctrl-Alt-Delete.",
     "path": "rules/windows/registry_set/registry_set_winlogon_notify_key.yml",
     "upstream_path": "rules/windows/registry/registry_set/registry_set_winlogon_notify_key.yml"
+  },
+  {
+    "id": "83475063-b1c8-4774-9568-69bbda71a539",
+    "title": "Potential WSL InstallLocation Registry Key Modification",
+    "platform": "windows",
+    "ruleset": "core",
+    "status": "experimental",
+    "level": "medium",
+    "type": "detection",
+    "product": "windows",
+    "category": "registry_set",
+    "service": "",
+    "tags": [
+      "attack.stealth",
+      "attack.defense-impairment",
+      "attack.persistence",
+      "attack.t1112",
+      "attack.t1218"
+    ],
+    "author": "Liran Ravich, Swachchhanda Shrawan Poudel (Nextron Systems)",
+    "date": "2026-05-05",
+    "modified": "",
+    "description": "Detects modifications to the Windows Subsystem for Linux (WSL) InstallLocation registry key.\nAttackers can modify this registry key to redirect the execution flow of legitimate WSL processes (wsl.exe or bash.exe) to a malicious payload, acting as a proxy execution and defense evasion technique.",
+    "path": "rules/windows/registry_set/registry_set_wsl_installlocation_registry_key_modification.yml",
+    "upstream_path": "rules/windows/registry/registry_set/registry_set_wsl_installlocation_registry_key_modification.yml"
   },
   {
     "id": "0b0ea3cc-99c8-4730-9c53-45deee2a4c86",
