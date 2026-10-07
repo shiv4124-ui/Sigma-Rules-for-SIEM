@@ -28353,6 +28353,18 @@
     "conversion": "ok"
   },
   {
+    "id": "0c3ebe9f-df09-4e00-be0f-73d4ca8d62f6",
+    "title": "PowerShell Dynamic Module Invocation Via ExportedCommands Array Index",
+    "platform": "windows",
+    "level": "high",
+    "status": "experimental",
+    "path": "rules/windows/process_creation/proc_creation_win_powershell_cmdlet_invocation_via_exported_commands_array_index.yml",
+    "expression": "((endsWithAny(process_path, '\\\\powershell.exe', '\\\\pwsh.exe') or equalsAny(original_file_name, 'powershell.exe', 'pwsh.dll')) and (containAny(command_line, 'Get-Module ', 'gmo ') and containAll(command_line, 'ListAvailable', 'Microsoft.PowerShell.Utility', 'ExportedCommands', 'Values')) and containAny(command_line, '[*]'))",
+    "keywords": [],
+    "keywords_regex": "",
+    "conversion": "ok"
+  },
+  {
     "id": "74403157-20f5-415d-89a7-c505779585cf",
     "title": "ConvertTo-SecureString Cmdlet Usage Via CommandLine",
     "platform": "windows",
@@ -37480,6 +37492,18 @@
     "status": "test",
     "path": "rules/windows/ps_script/posh_ps_clearing_windows_console_history.yml",
     "expression": "containAny(script_block_text, 'Clear-History') or containAny(script_block_text, 'Remove-Item', 'rm') and containAny(script_block_text, 'ConsoleHost_history.txt', '(Get-PSReadlineOption).HistorySavePath')",
+    "keywords": [],
+    "keywords_regex": "",
+    "conversion": "ok"
+  },
+  {
+    "id": "4ff4ad3e-9fb5-4a70-9962-d6ea58090318",
+    "title": "PowerShell Dynamic Module Invocation Via ExportedCommands Array Index - PS Script",
+    "platform": "windows",
+    "level": "medium",
+    "status": "experimental",
+    "path": "rules/windows/ps_script/posh_ps_cmdlet_invocation_via_exported_commands_array_index.yml",
+    "expression": "((containAny(script_block_text, 'Get-Module ', 'gmo ') and containAll(script_block_text, 'ListAvailable', 'Microsoft.PowerShell.Utility', 'ExportedCommands', 'Values')) and containAny(script_block_text, '[*]'))",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"

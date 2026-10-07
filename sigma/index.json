@@ -53340,6 +53340,30 @@
     "upstream_path": "rules/windows/process_creation/proc_creation_win_powershell_cl_mutexverifiers.yml"
   },
   {
+    "id": "0c3ebe9f-df09-4e00-be0f-73d4ca8d62f6",
+    "title": "PowerShell Dynamic Module Invocation Via ExportedCommands Array Index",
+    "platform": "windows",
+    "ruleset": "core",
+    "status": "experimental",
+    "level": "high",
+    "type": "detection",
+    "product": "windows",
+    "category": "process_creation",
+    "service": "",
+    "tags": [
+      "attack.execution",
+      "attack.stealth",
+      "attack.t1027.010",
+      "attack.t1059.001"
+    ],
+    "author": "Norbert Jaśniewicz (AlphaSOC), Swachchhanda Shrawan Poudel (Nextron Systems)",
+    "date": "2026-10-06",
+    "modified": "",
+    "description": "Detects PowerShell processes invoked with obfuscated command lines that enumerate Microsoft.PowerShell.Utility\nexported commands and invoke cmdlets indirectly by array index. This technique is used to evade\ndetections that look for explicit strings such as Invoke-RestMethod or Invoke-Expression.",
+    "path": "rules/windows/process_creation/proc_creation_win_powershell_cmdlet_invocation_via_exported_commands_array_index.yml",
+    "upstream_path": "rules/windows/process_creation/proc_creation_win_powershell_cmdlet_invocation_via_exported_commands_array_index.yml"
+  },
+  {
     "id": "74403157-20f5-415d-89a7-c505779585cf",
     "title": "ConvertTo-SecureString Cmdlet Usage Via CommandLine",
     "platform": "windows",
@@ -70691,6 +70715,30 @@
     "description": "Identifies when a user attempts to clear console history. An adversary may clear the command history of a compromised account to conceal the actions undertaken during an intrusion.",
     "path": "rules/windows/ps_script/posh_ps_clearing_windows_console_history.yml",
     "upstream_path": "rules/windows/powershell/powershell_script/posh_ps_clearing_windows_console_history.yml"
+  },
+  {
+    "id": "4ff4ad3e-9fb5-4a70-9962-d6ea58090318",
+    "title": "PowerShell Dynamic Module Invocation Via ExportedCommands Array Index - PS Script",
+    "platform": "windows",
+    "ruleset": "core",
+    "status": "experimental",
+    "level": "medium",
+    "type": "detection",
+    "product": "windows",
+    "category": "ps_script",
+    "service": "",
+    "tags": [
+      "attack.execution",
+      "attack.stealth",
+      "attack.t1027",
+      "attack.t1059.001"
+    ],
+    "author": "Norbert Jaśniewicz (AlphaSOC)",
+    "date": "2026-10-06",
+    "modified": "",
+    "description": "Detects obfuscated PowerShell scripts that enumerate Microsoft.PowerShell.Utility exported commands\nand invoke cmdlets indirectly by array index. This can be used to evade detections\nthat look for explicit strings such as Invoke-RestMethod or Invoke-Expression.",
+    "path": "rules/windows/ps_script/posh_ps_cmdlet_invocation_via_exported_commands_array_index.yml",
+    "upstream_path": "rules/windows/powershell/powershell_script/posh_ps_cmdlet_invocation_via_exported_commands_array_index.yml"
   },
   {
     "id": "363eccc0-279a-4ccf-a3ab-24c2e63b11fb",
