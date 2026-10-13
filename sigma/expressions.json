@@ -11638,7 +11638,7 @@
     "level": "high",
     "status": "test",
     "path": "rules/windows/application/win_av_relevant_match.yml",
-    "expression": "containAny(command_line, 'Adfind', 'ASP/BackDoor ', 'ATK/', 'Backdoor.ASP', 'Backdoor.Cobalt', 'Backdoor.JSP', 'Backdoor.PHP', 'Blackworm', 'Brutel', 'BruteR', 'Chopper', 'Cobalt', 'COBEACON', 'Cometer', 'CRYPTES', 'Cryptor', 'Destructor', 'DumpCreds', 'Exploit.Script.CVE', 'FastReverseProxy', 'Filecoder', 'GrandCrab ', 'HackTool', 'HKTL', 'HTool-', '/HTool', '.HTool', 'IISExchgSpawnCMD', 'Impacket', 'JSP/BackDoor ', 'Keylogger', 'Koadic', 'Krypt', 'Lazagne', 'Metasploit', 'Meterpreter', 'MeteTool', 'mikatz', 'Mimikatz', 'Mpreter', 'MsfShell', 'Nighthawk', 'Packed.Generic.347', 'PentestPowerShell', 'Phobos', 'PHP/BackDoor ', 'Potato', 'PowerSploit', 'PowerSSH', 'PshlSpy', 'PSWTool', 'PWCrack', 'PWDump', 'Ransom', 'Rozena', 'Ryzerlo', 'Sbelt', 'Seatbelt', 'SecurityTool ', 'SharpDump', 'Shellcode', 'Sliver', 'Splinter', 'Swrort', 'Tescrypt', 'TeslaCrypt', 'TurtleLoader', 'Valyria', 'Webshell') and not (containAny(command_line, 'anti_ransomware_service.exe', 'Anti-Ransomware', 'Crack', 'cyber-protect-service.exe', 'encryptor', 'Keygen') or equalsAny(level, 4) or equalsAny(provider_name, 'Microsoft-Windows-RestartManager'))",
+    "expression": "(containAny(command_line, 'Adfind', 'ASP/BackDoor ', 'ATK/', 'Backdoor.ASP', 'Backdoor.Cobalt', 'Backdoor.JSP', 'Backdoor.PHP', 'Blackworm', 'Brutel', 'BruteR', 'Chopper', 'Cobalt', 'COBEACON', 'Cometer', 'CRYPTES', 'Cryptor', 'Destructor', 'DumpCreds', 'Exploit.Script.CVE', 'FastReverseProxy', 'Filecoder', 'GrandCrab ', 'HackTool', '_HKTL', '-HKTL', '.HKTL', '/HKTL', 'HKTL_', 'HKTL-', 'HKTL.', 'HKTL/', 'HTool-', 'HTool.', 'HTool/', 'HTool_', '-HTool', '/HTool', '.HTool', '_HTool', 'IISExchgSpawnCMD', 'Impacket', 'JSP/BackDoor ', 'Keylogger', 'Koadic', 'Krypt', 'Lazagne', 'Metasploit', 'Meterpreter', 'MeteTool', 'mikatz', 'Mimikatz', 'Mpreter', 'MsfShell', 'Nighthawk', 'Packed.Generic.347', 'PentestPowerShell', 'Phobos', 'PHP/BackDoor ', 'Potato', 'PowerSploit', 'PowerSSH', 'PshlSpy', 'PSWTool', 'PWCrack', 'PWDump', 'Ransom', 'Rozena', 'Ryzerlo', 'Sbelt', 'Seatbelt', 'SecurityTool ', 'SharpDump', 'Shellcode', 'Sliver', 'Splinter', 'Swrort', 'Tescrypt', 'TeslaCrypt', 'TurtleLoader', 'Valyria', 'Webshell') or regexAny(command_line, '\\\\bHKTL\\\\b')) and not (containAny(command_line, 'anti_ransomware_service.exe', 'Anti-Ransomware', 'Crack', 'cyber-protect-service.exe', 'encryptor', 'Keygen') or equalsAny(level, 4) or equalsAny(provider_name, 'Microsoft-Windows-RestartManager'))",
     "keywords": [
       "Adfind",
       "ASP/BackDoor ",
@@ -11663,10 +11663,22 @@
       "Filecoder",
       "GrandCrab ",
       "HackTool",
-      "HKTL",
+      "_HKTL",
+      "-HKTL",
+      ".HKTL",
+      "/HKTL",
+      "HKTL_",
+      "HKTL-",
+      "HKTL.",
+      "HKTL/",
       "HTool-",
+      "HTool.",
+      "HTool/",
+      "HTool_",
+      "-HTool",
       "/HTool",
       ".HTool",
+      "_HTool",
       "IISExchgSpawnCMD",
       "Impacket",
       "JSP/BackDoor ",
@@ -11716,7 +11728,7 @@
       "encryptor",
       "Keygen"
     ],
-    "keywords_regex": "(?i)(Adfind|ASP/BackDoor |ATK/|Backdoor\\.ASP|Backdoor\\.Cobalt|Backdoor\\.JSP|Backdoor\\.PHP|Blackworm|Brutel|BruteR|Chopper|Cobalt|COBEACON|Cometer|CRYPTES|Cryptor|Destructor|DumpCreds|Exploit\\.Script\\.CVE|FastReverseProxy|Filecoder|GrandCrab |HackTool|HKTL|HTool-|/HTool|\\.HTool|IISExchgSpawnCMD|Impacket|JSP/BackDoor |Keylogger|Koadic|Krypt|Lazagne|Metasploit|Meterpreter|MeteTool|mikatz|Mimikatz|Mpreter|MsfShell|Nighthawk|Packed\\.Generic\\.347|PentestPowerShell|Phobos|PHP/BackDoor |Potato|PowerSploit|PowerSSH|PshlSpy|PSWTool|PWCrack|PWDump|Ransom|Rozena|Ryzerlo|Sbelt|Seatbelt|SecurityTool |SharpDump|Shellcode|Sliver|Splinter|Swrort|Tescrypt|TeslaCrypt|TurtleLoader|Valyria|Webshell|anti_ransomware_service\\.exe|Anti-Ransomware|Crack|cyber-protect-service\\.exe|encryptor|Keygen)",
+    "keywords_regex": "(?i)(Adfind|ASP/BackDoor |ATK/|Backdoor\\.ASP|Backdoor\\.Cobalt|Backdoor\\.JSP|Backdoor\\.PHP|Blackworm|Brutel|BruteR|Chopper|Cobalt|COBEACON|Cometer|CRYPTES|Cryptor|Destructor|DumpCreds|Exploit\\.Script\\.CVE|FastReverseProxy|Filecoder|GrandCrab |HackTool|_HKTL|-HKTL|\\.HKTL|/HKTL|HKTL_|HKTL-|HKTL\\.|HKTL/|HTool-|HTool\\.|HTool/|HTool_|-HTool|/HTool|\\.HTool|_HTool|IISExchgSpawnCMD|Impacket|JSP/BackDoor |Keylogger|Koadic|Krypt|Lazagne|Metasploit|Meterpreter|MeteTool|mikatz|Mimikatz|Mpreter|MsfShell|Nighthawk|Packed\\.Generic\\.347|PentestPowerShell|Phobos|PHP/BackDoor |Potato|PowerSploit|PowerSSH|PshlSpy|PSWTool|PWCrack|PWDump|Ransom|Rozena|Ryzerlo|Sbelt|Seatbelt|SecurityTool |SharpDump|Shellcode|Sliver|Splinter|Swrort|Tescrypt|TeslaCrypt|TurtleLoader|Valyria|Webshell|anti_ransomware_service\\.exe|Anti-Ransomware|Crack|cyber-protect-service\\.exe|encryptor|Keygen)",
     "conversion": "ok"
   },
   {
@@ -15496,7 +15508,7 @@
     "level": "high",
     "status": "test",
     "path": "rules/windows/file_event/file_event_win_susp_double_extension.yml",
-    "expression": "((endsWithAny(file_path, '.exe', '.iso', '.rar', '.svg', '.zip') and containAny(file_path, '.doc.', '.docx.', '.gif.', '.jpeg.', '.jpg.', '.mp3.', '.mp4.', '.pdf.', '.png.', '.ppt.', '.pptx.', '.rtf.', '.svg.', '.txt.', '.xls.', '.xlsx.')) or endsWithAny(file_path, '.rar.exe', '.zip.exe')) and not startsWithAny(file_path, '/usr/share/icons/')",
+    "expression": "((endsWithAny(file_path, '.exe', '.iso', '.rar', '.svg', '.zip') and containAny(file_path, '.doc.', '.docx.', '.gif.', '.jpeg.', '.jpg.', '.mp3.', '.mp4.', '.pdf.', '.png.', '.ppt.', '.pptx.', '.rtf.', '.svg.', '.txt.', '.xls.', '.xlsx.')) or endsWithAny(file_path, '.rar.exe', '.zip.exe')) and not endsWithAny(file_path, '.svg.svg') and not startsWithAny(file_path, '/usr/share/icons/')",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
@@ -33435,7 +33447,7 @@
     "level": "high",
     "status": "test",
     "path": "rules/windows/process_creation/proc_creation_win_susp_etw_trace_evasion.yml",
-    "expression": "(containAll(command_line, 'cl', '/Trace') or containAll(command_line, 'clear-log', '/Trace') or containAll(command_line, 'sl', '/e:false') or containAll(command_line, 'set-log', '/e:false') or containAll(command_line, 'logman', 'update', 'trace', '--p', '-ets') or containAny(command_line, 'Remove-EtwTraceProvider') or containAll(command_line, 'Set-EtwTraceProvider', '0x11'))",
+    "expression": "((endsWithAny(process_path, '\\\\wevtutil.exe') or equalsAny(original_file_name, 'wevtutil.exe')) and ((containAny(command_line, ' cl ', 'clear-log') and containAny(command_line, '/Trace')) or (containAny(command_line, ' sl ', 'set-log') and containAny(command_line, '/e:false')))) or (((endsWithAny(process_path, '\\\\logman.exe') or equalsAny(original_file_name, 'Logman.exe')) and containAll(command_line, 'update', 'trace', '--p', '-ets'))) or (((endsWithAny(process_path, '\\\\powershell.exe', '\\\\pwsh.exe') or equalsAny(original_file_name, 'powershell.exe', 'pwsh.dll')) and (containAny(command_line, 'Remove-EtwTraceProvider') or containAll(command_line, 'Set-EtwTraceProvider', '0x11') or containAll(command_line, 'Set-EtwTraceProvider', ' 17') or containAll(command_line, 'Set-EtwTraceProvider', '\\'17\\'') or containAll(command_line, 'Set-EtwTraceProvider', '\"17\"'))))",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
@@ -37767,7 +37779,7 @@
     "level": "high",
     "status": "test",
     "path": "rules/windows/ps_script/posh_ps_etw_trace_evasion.yml",
-    "expression": "(containAny(script_block_text, 'Remove-EtwTraceProvider ') or containAll(script_block_text, 'Set-EtwTraceProvider ', '0x11'))",
+    "expression": "(containAny(script_block_text, 'Remove-EtwTraceProvider ') or containAll(script_block_text, 'Set-EtwTraceProvider ', '0x11') or (containAll(script_block_text, 'Set-EtwTraceProvider ', ' 17') or containAll(script_block_text, 'Set-EtwTraceProvider ', '“\\'17\\'”') or containAll(script_block_text, 'Set-EtwTraceProvider ', '”17”')))",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"

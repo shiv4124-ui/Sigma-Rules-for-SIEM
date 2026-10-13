@@ -21305,7 +21305,7 @@
     ],
     "author": "Florian Roth (Nextron Systems), Arnim Rupp",
     "date": "2017-02-19",
-    "modified": "2024-12-25",
+    "modified": "2026-10-12",
     "description": "Detects potentially highly relevant antivirus events in the application log based on known virus signature names and malware keywords.",
     "path": "rules/windows/application/win_av_relevant_match.yml",
     "upstream_path": "rules/windows/builtin/application/Other/win_av_relevant_match.yml"
@@ -28471,7 +28471,7 @@
     ],
     "author": "Nasreddine Bencherchali (Nextron Systems), frack113",
     "date": "2022-06-19",
-    "modified": "2026-03-31",
+    "modified": "2026-10-12",
     "description": "Detects dropped files with double extensions, which is often used by malware as a method to abuse the fact that Windows hide default extensions by default.",
     "path": "rules/windows/file_event/file_event_win_susp_double_extension.yml",
     "upstream_path": "rules/windows/file/file_event/file_event_win_susp_double_extension.yml"
@@ -63006,8 +63006,8 @@
     ],
     "author": "@neu5ron, Florian Roth (Nextron Systems), Jonhnathan Ribeiro, oscd.community",
     "date": "2019-03-22",
-    "modified": "2022-06-28",
-    "description": "Detects command line activity that tries to clear or disable any ETW trace log which could be a sign of logging evasion.",
+    "modified": "2026-10-12",
+    "description": "Detects command line activity that attempts to tamper with Event Tracing for Windows (ETW) by clearing or disabling\ntrace logs or providers. Adversaries may target ETW to blind security tooling and evade detection by removing\nvisibility into process activity, network connections, and other telemetry sources.\nTechniques include clearing logs via wevtutil, disabling trace sessions via logman, and removing or modifying\nETW providers using PowerShell cmdlets such as Remove-EtwTraceProvider and Set-EtwTraceProvider.",
     "path": "rules/windows/process_creation/proc_creation_win_susp_etw_trace_evasion.yml",
     "upstream_path": "rules/windows/process_creation/proc_creation_win_susp_etw_trace_evasion.yml"
   },
@@ -71243,7 +71243,7 @@
     ],
     "author": "Nasreddine Bencherchali (Nextron Systems)",
     "date": "2022-06-28",
-    "modified": "2022-11-25",
+    "modified": "2026-10-12",
     "description": "Detects usage of powershell cmdlets to disable or remove ETW trace sessions",
     "path": "rules/windows/ps_script/posh_ps_etw_trace_evasion.yml",
     "upstream_path": "rules/windows/powershell/powershell_script/posh_ps_etw_trace_evasion.yml"
