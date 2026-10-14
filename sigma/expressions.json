@@ -6550,7 +6550,7 @@
     "level": "low",
     "status": "test",
     "path": "rules/linux/process_creation/proc_creation_lnx_install_root_certificate.yml",
-    "expression": "endsWithAny(process_path, '/update-ca-certificates', '/update-ca-trust')",
+    "expression": "containAny(command_line, '/update-ca-certificates', '/update-ca-trust')",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
@@ -8872,7 +8872,7 @@
     "level": "high",
     "status": "test",
     "path": "rules/network/dns/net_dns_external_service_interaction_domains.yml",
-    "expression": "endsWithAny(query, '.burpcollaborator.net', '.canarytokens.com', '.ceye.io', '.ddns.1433.eu.org', '.ddns.bypass.eu.org', '.ddns.xn--gg8h.eu.org', '.digimg.store', '.dns.su18.org', '.dnshook.site', '.dnslog.cn', '.dnslog.ink', '.gobygo.net', '.instances.httpworkbench.com', '.interact.sh', '.log.dnslog.pp.ua', '.log.dnslog.qzz.io', '.log.dnslogs.dpdns.org', '.log.javaweb.org', '.log.nat.cloudns.ph', '.oast.fun', '.oast.live', '.oast.me', '.oast.online', '.oast.pro', '.oast.site', '.oastify.com', '.p8.lol', '.requestbin.net') and not containAny(query, 'polling.oastify.com')",
+    "expression": "(endsWithAny(query, '.burpcollaborator.net', '.canarytokens.com', '.ceye.io', '.ddns.1443.eu.org', '.ddns.bypass.eu.org', '.ddns.xn--gg8h.eu.org', '.digimg.store', '.dns.su18.org', '.dnshook.site', '.dnslog.cn', '.dnslog.ink', '.gobygo.net', '.instances.httpworkbench.com', '.interact.sh', '.log.dnslog.pp.ua', '.log.dnslog.qzz.io', '.log.dnslogs.dpdns.org', '.log.javaweb.org', '.log.nat.cloudns.ph', '.oast.fun', '.oast.live', '.oast.me', '.oast.online', '.oast.pro', '.oast.site', '.oastify.com', '.p8.lol', '.requestbin.net', '.requestrepo.com') or equalsAny(query, 'requestrepo.com')) and not containAny(query, 'polling.oastify.com')",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
@@ -40125,6 +40125,18 @@
     "conversion": "ok"
   },
   {
+    "id": "c69fc6a2-607d-4530-b7d1-75823af1bde4",
+    "title": "Allow Exceptions in Microsoft Defender Firewall via Registry",
+    "platform": "windows",
+    "level": "medium",
+    "status": "experimental",
+    "path": "rules/windows/registry_set/registry_set_allow_defender_firewall_exceptions.yml",
+    "expression": "(containAny(registry_key, '\\\\Services\\\\SharedAccess\\\\Parameters\\\\FirewallPolicy\\\\') and endsWithAny(registry_key, '\\\\DoNotAllowExceptions') and equalsAny(registry_value, 'DWORD (0x00000000)')) and not equalsAny(process_path, 'C:\\\\Windows\\\\System32\\\\svchost.exe', 'C:\\\\Windows\\\\SysWOW64\\\\svchost.exe')",
+    "keywords": [],
+    "keywords_regex": "",
+    "conversion": "ok"
+  },
+  {
     "id": "37b437cf-3fc5-4c8e-9c94-1d7c9aff842b",
     "title": "Allow RDP Remote Assistance Feature",
     "platform": "windows",
@@ -40600,6 +40612,18 @@
     "status": "test",
     "path": "rules/windows/registry_set/registry_set_defender_exclusions.yml",
     "expression": "containAny(registry_key, '\\\\Microsoft\\\\Windows Defender\\\\Exclusions')",
+    "keywords": [],
+    "keywords_regex": "",
+    "conversion": "ok"
+  },
+  {
+    "id": "6648f900-4a7d-47e3-bad6-952b313a1c0e",
+    "title": "Add Authorized Applications to Microsoft Defender Firewall via Registry",
+    "platform": "windows",
+    "level": "medium",
+    "status": "experimental",
+    "path": "rules/windows/registry_set/registry_set_defender_firewall_add_exception.yml",
+    "expression": "(containAll(registry_key, '\\\\Services\\\\SharedAccess\\\\Parameters\\\\FirewallPolicy\\\\', '\\\\AuthorizedApplications\\\\List') and containAny(registry_value, ':Enabled:'))",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"

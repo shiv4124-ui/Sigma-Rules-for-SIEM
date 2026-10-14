@@ -12090,7 +12090,7 @@
     ],
     "author": "Ömer Günal, oscd.community",
     "date": "2020-10-05",
-    "modified": "2022-07-07",
+    "modified": "2026-10-04",
     "description": "Detects installation of new certificate on the system which attackers may use to avoid warnings when connecting to controlled web servers or C2s",
     "path": "rules/linux/process_creation/proc_creation_lnx_install_root_certificate.yml",
     "upstream_path": "rules/linux/process_creation/proc_creation_lnx_install_root_certificate.yml"
@@ -16316,7 +16316,7 @@
     ],
     "author": "Florian Roth (Nextron Systems), Matt Kelly (list of domains)",
     "date": "2022-06-07",
-    "modified": "2026-08-28",
+    "modified": "2026-10-13",
     "description": "Detects DNS queries to well-known out-of-band application security testing (OAST) and callback domains.\nThese services (e.g. Burp Collaborator, interactsh, canarytokens, dnslog.cn) are used by security\nresearchers and attackers alike to confirm blind vulnerabilities such as SSRF, XXE, blind RCE, and\nLog4Shell-style injections, where the exploit payload triggers an external DNS lookup to a controlled domain.\n\nA detection indicates that a host on your network resolved one of these domains, which may mean:\n    (1) an attacker is actively probing or exploiting a vulnerable service and using the callback to\n    confirm code execution or data exfiltration,\n    (2) a security scanner (e.g. Nuclei, Gobies) is running against internal targets.\n\nInvestigate the source host, the full DNS query string (the unique subdomain prefix encodes the callback session),\nand any concurrent outbound connections or process activity to determine intent.",
     "path": "rules/network/dns/net_dns_external_service_interaction_domains.yml",
     "upstream_path": "rules/network/dns/net_dns_external_service_interaction_domains.yml"
@@ -75713,6 +75713,28 @@
     "upstream_path": "rules/windows/registry/registry_set/registry_set_aedebug_persistence.yml"
   },
   {
+    "id": "c69fc6a2-607d-4530-b7d1-75823af1bde4",
+    "title": "Allow Exceptions in Microsoft Defender Firewall via Registry",
+    "platform": "windows",
+    "ruleset": "core",
+    "status": "experimental",
+    "level": "medium",
+    "type": "detection",
+    "product": "windows",
+    "category": "registry_set",
+    "service": "",
+    "tags": [
+      "attack.defense-impairment",
+      "attack.t1686.003"
+    ],
+    "author": "frack113",
+    "date": "2026-10-13",
+    "modified": "",
+    "description": "Detects the degradation of the system firewall security by the DoNotAllowExceptions policy value being\nset to 0 (DWORD 0x00000000), which re-enables application and port exceptions in the Microsoft\nDefender Firewall and can restore network paths that a hardened profile would block.",
+    "path": "rules/windows/registry_set/registry_set_allow_defender_firewall_exceptions.yml",
+    "upstream_path": "rules/windows/registry/registry_set/registry_set_allow_defender_firewall_exceptions.yml"
+  },
+  {
     "id": "37b437cf-3fc5-4c8e-9c94-1d7c9aff842b",
     "title": "Allow RDP Remote Assistance Feature",
     "platform": "windows",
@@ -76640,6 +76662,28 @@
     "description": "Detects the Setting of Windows Defender Exclusions",
     "path": "rules/windows/registry_set/registry_set_defender_exclusions.yml",
     "upstream_path": "rules/windows/registry/registry_set/registry_set_defender_exclusions.yml"
+  },
+  {
+    "id": "6648f900-4a7d-47e3-bad6-952b313a1c0e",
+    "title": "Add Authorized Applications to Microsoft Defender Firewall via Registry",
+    "platform": "windows",
+    "ruleset": "core",
+    "status": "experimental",
+    "level": "medium",
+    "type": "detection",
+    "product": "windows",
+    "category": "registry_set",
+    "service": "",
+    "tags": [
+      "attack.defense-impairment",
+      "attack.t1686.003"
+    ],
+    "author": "frack113",
+    "date": "2026-10-13",
+    "modified": "",
+    "description": "Detects the degradation of the system firewall security by the creation or re-enabling of per-application\nexceptions via registry writes to the AuthorizedApplications\\List keys under FirewallPolicy, which grants\nthe targeted executable network access and can be abused by malware to bypass network restrictions.",
+    "path": "rules/windows/registry_set/registry_set_defender_firewall_add_exception.yml",
+    "upstream_path": "rules/windows/registry/registry_set/registry_set_defender_firewall_add_exception.yml"
   },
   {
     "id": "85b88e05-dadc-430b-8a9e-53ff1cd30aae",
