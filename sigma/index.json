@@ -24637,7 +24637,7 @@
     ],
     "author": "Nasreddine Bencherchali (Nextron Systems)",
     "date": "2022-10-26",
-    "modified": "2022-12-30",
+    "modified": "2026-10-13",
     "description": "Detects the deletion of the Exchange PowerShell cmdlet History logs which may indicate an attempt to destroy forensic evidence",
     "path": "rules/windows/file_delete/file_delete_win_delete_exchange_powershell_logs.yml",
     "upstream_path": "rules/windows/file/file_delete/file_delete_win_delete_exchange_powershell_logs.yml"
@@ -25300,7 +25300,7 @@
     ],
     "author": "D3F7A5105",
     "date": "2023-01-02",
-    "modified": "2024-03-26",
+    "modified": "2026-10-13",
     "description": "Detects the creation of new files with the \".evtx\" extension in non-common or non-standard location.\nThis could indicate tampering with default EVTX locations in order to evade security controls or simply exfiltration of event log to search for sensitive information within.\nNote that backup software and legitimate administrator might perform similar actions during troubleshooting.",
     "path": "rules/windows/file_event/file_event_win_create_evtx_non_common_locations.yml",
     "upstream_path": "rules/windows/file/file_event/file_event_win_create_evtx_non_common_locations.yml"
@@ -52025,12 +52025,13 @@
     "category": "process_creation",
     "service": "",
     "tags": [
-      "attack.stealth"
+      "attack.command-and-control",
+      "attack.t1071.004"
     ],
     "author": "Nasreddine Bencherchali (Nextron Systems)",
     "date": "2022-09-05",
-    "modified": "2022-12-19",
-    "description": "Detects suspicious powershell download cradle using nslookup. This cradle uses nslookup to extract payloads from DNS records",
+    "modified": "2026-10-13",
+    "description": "Detects suspicious powershell download cradle using nslookup.\nThis cradle uses nslookup to extract payloads from DNS records",
     "path": "rules/windows/process_creation/proc_creation_win_nslookup_poweshell_download.yml",
     "upstream_path": "rules/windows/process_creation/proc_creation_win_nslookup_poweshell_download.yml"
   },

@@ -13492,7 +13492,7 @@
     "level": "high",
     "status": "test",
     "path": "rules/windows/file_delete/file_delete_win_delete_exchange_powershell_logs.yml",
-    "expression": "(startsWithAny(file_path, '\\\\Logging\\\\CmdletInfra\\\\LocalPowerShell\\\\Cmdlet\\\\') and containAny(file_path, '_Cmdlet_'))",
+    "expression": "containAll(file_path, '\\\\Logging\\\\CmdletInfra\\\\LocalPowerShell\\\\Cmdlet\\\\', '_Cmdlet_')",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
@@ -13840,7 +13840,7 @@
     "level": "medium",
     "status": "test",
     "path": "rules/windows/file_event/file_event_win_create_evtx_non_common_locations.yml",
-    "expression": "endsWithAny(file_path, '.evtx') and not (startsWithAny(file_path, 'C:\\\\Windows\\\\System32\\\\winevt\\\\Logs\\\\') or (startsWithAny(file_path, 'C:\\\\ProgramData\\\\Microsoft\\\\Windows\\\\Containers\\\\BaseImages\\\\') and endsWithAny(file_path, '\\\\Windows\\\\System32\\\\winevt\\\\Logs\\\\')))",
+    "expression": "endsWithAny(file_path, '.evtx') and not (startsWithAny(file_path, 'C:\\\\Windows\\\\System32\\\\winevt\\\\Logs\\\\') or (startsWithAny(file_path, 'C:\\\\ProgramData\\\\Microsoft\\\\Windows\\\\Containers\\\\BaseImages\\\\') and containAny(file_path, '\\\\Windows\\\\System32\\\\winevt\\\\Logs\\\\')))",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
@@ -27663,7 +27663,7 @@
     "level": "medium",
     "status": "test",
     "path": "rules/windows/process_creation/proc_creation_win_nslookup_poweshell_download.yml",
-    "expression": "((containAny(process_path, '\\\\nslookup.exe') or equalsAny(original_file_name, '\\\\nslookup.exe')) and (endsWithAny(parent_process_path, '\\\\powershell.exe', '\\\\pwsh.exe') and containAny(command_line, ' -q=txt ', ' -querytype=txt ')))",
+    "expression": "((endsWithAny(process_path, '\\\\nslookup.exe') or equalsAny(original_file_name, 'nslookup.exe')) and (endsWithAny(parent_process_path, '\\\\powershell.exe', '\\\\pwsh.exe') and containAny(command_line, ' -q=txt ', ' -querytype=txt ', ' -type=txt')))",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
