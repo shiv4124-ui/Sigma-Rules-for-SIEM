@@ -28471,7 +28471,7 @@
     ],
     "author": "Nasreddine Bencherchali (Nextron Systems), frack113",
     "date": "2022-06-19",
-    "modified": "2026-10-12",
+    "modified": "2026-10-16",
     "description": "Detects dropped files with double extensions, which is often used by malware as a method to abuse the fact that Windows hide default extensions by default.",
     "path": "rules/windows/file_event/file_event_win_susp_double_extension.yml",
     "upstream_path": "rules/windows/file/file_event/file_event_win_susp_double_extension.yml"

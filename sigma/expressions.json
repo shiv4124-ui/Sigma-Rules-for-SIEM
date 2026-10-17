@@ -15508,7 +15508,7 @@
     "level": "high",
     "status": "test",
     "path": "rules/windows/file_event/file_event_win_susp_double_extension.yml",
-    "expression": "((endsWithAny(file_path, '.exe', '.iso', '.rar', '.svg', '.zip') and containAny(file_path, '.doc.', '.docx.', '.gif.', '.jpeg.', '.jpg.', '.mp3.', '.mp4.', '.pdf.', '.png.', '.ppt.', '.pptx.', '.rtf.', '.svg.', '.txt.', '.xls.', '.xlsx.')) or endsWithAny(file_path, '.rar.exe', '.zip.exe')) and not endsWithAny(file_path, '.svg.svg') and not startsWithAny(file_path, '/usr/share/icons/')",
+    "expression": "(regexAny(file_path, '\\\\.(docx?|gif|jpe?g|mp3|mp4|pdf|png|pptx?|rtf|svg|txt|xlsx?)\\\\.(bat|exe|iso|rar|svg|vbe|vbs|zip)$') or endsWithAny(file_path, '.rar.exe', '.zip.exe')) and not endsWithAny(file_path, '.svg.svg', '.png.svg', '.jpg.svg', '.jpeg.svg') and not startsWithAny(file_path, '/usr/share/icons/')",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
