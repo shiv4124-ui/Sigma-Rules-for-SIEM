@@ -11097,6 +11097,28 @@
     "upstream_path": "rules/linux/process_creation/proc_creation_lnx_capsh_shell_invocation.yml"
   },
   {
+    "id": "904f6442-3b57-4b3f-987c-1559f58ce8d8",
+    "title": "Shell Spawned by Celery Worker Process",
+    "platform": "linux",
+    "ruleset": "core",
+    "status": "experimental",
+    "level": "medium",
+    "type": "detection",
+    "product": "linux",
+    "category": "process_creation",
+    "service": "",
+    "tags": [
+      "attack.execution",
+      "attack.t1059.004"
+    ],
+    "author": "Jennifer Batina",
+    "date": "2026-10-17",
+    "modified": "",
+    "description": "Detects a system shell interpreter being spawned directly by a Celery worker process.\nThis behavior indicates a Python background task execution framework is evaluating raw string input through a shell execution context,\nwhich is highly indicative of successful command or prompt injection exploitation against an LLM agent task.",
+    "path": "rules/linux/process_creation/proc_creation_lnx_celery_worker_shell_spawn.yml",
+    "upstream_path": "rules/linux/process_creation/proc_creation_lnx_celery_worker_shell_spawn.yml"
+  },
+  {
     "id": "34979410-e4b5-4e5d-8cfb-389fdff05c12",
     "title": "Remove Immutable File Attribute",
     "platform": "linux",
@@ -57038,6 +57060,29 @@
     "upstream_path": "rules/windows/process_creation/proc_creation_win_reg_import_from_suspicious_paths.yml"
   },
   {
+    "id": "ccc946a3-f65a-432a-bb6f-efc6acc1fd27",
+    "title": "Registry Tampering Of Internal Tools Settings",
+    "platform": "windows",
+    "ruleset": "core",
+    "status": "experimental",
+    "level": "medium",
+    "type": "detection",
+    "product": "windows",
+    "category": "process_creation",
+    "service": "",
+    "tags": [
+      "attack.persistence",
+      "attack.defense-impairment",
+      "attack.t1112"
+    ],
+    "author": "Swachchhanda Shrawan Poudel (Nextron Systems)",
+    "date": "2026-10-18",
+    "modified": "",
+    "description": "Detects registry modifications that tamper with internal Windows tools settings, commonly used by malware to disable security features or system tools",
+    "path": "rules/windows/process_creation/proc_creation_win_reg_internal_tools_setting_tampering.yml",
+    "upstream_path": "rules/windows/process_creation/proc_creation_win_reg_internal_tools_setting_tampering.yml"
+  },
+  {
     "id": "28ac00d6-22d9-4a3c-927f-bbd770104573",
     "title": "RestrictedAdminMode Registry Value Tampering - ProcCreation",
     "platform": "windows",
@@ -60213,7 +60258,7 @@
     ],
     "author": "Tim Shelton, Florian Roth (Nextron Systems), Yassine Oukessou",
     "date": "2022-01-13",
-    "modified": "2024-04-04",
+    "modified": "2026-10-13",
     "description": "Detects the execution of rundll32 with a command line that doesn't contain a common extension",
     "path": "rules/windows/process_creation/proc_creation_win_rundll32_uncommon_dll_extension.yml",
     "upstream_path": "rules/windows/process_creation/proc_creation_win_rundll32_uncommon_dll_extension.yml"
@@ -64389,7 +64434,7 @@
     ],
     "author": "Nasreddine Bencherchali (Nextron Systems), frack113 , X__Junior (Nextron Systems)",
     "date": "2022-09-01",
-    "modified": "2025-08-27",
+    "modified": "2026-10-17",
     "description": "Detects the usage of binaries such as 'net', 'sc' or 'powershell' in order to stop, pause, disable or delete critical or important Windows services such as AV, Backup, etc. As seen being used in some ransomware scripts",
     "path": "rules/windows/process_creation/proc_creation_win_susp_service_tamper.yml",
     "upstream_path": "rules/windows/process_creation/proc_creation_win_susp_service_tamper.yml"
@@ -76888,7 +76933,7 @@
     ],
     "author": "frack113, Nasreddine Bencherchali (Nextron Systems), CrimpSec",
     "date": "2022-03-18",
-    "modified": "2025-06-04",
+    "modified": "2026-10-18",
     "description": "Detects registry modifications that change features of internal Windows tools (malware like Agent Tesla uses this technique)",
     "path": "rules/windows/registry_set/registry_set_disable_function_user.yml",
     "upstream_path": "rules/windows/registry/registry_set/registry_set_disable_function_user.yml"
@@ -79788,29 +79833,6 @@
     "description": "Detects changes to the \"TracingDisabled\" key in order to disable ETW logging for services.exe (SCM)",
     "path": "rules/windows/registry_set/registry_set_services_etw_tamper.yml",
     "upstream_path": "rules/windows/registry/registry_set/registry_set_services_etw_tamper.yml"
-  },
-  {
-    "id": "1c3121ed-041b-4d97-a075-07f54f20fb4a",
-    "title": "Registry Explorer Policy Modification",
-    "platform": "windows",
-    "ruleset": "core",
-    "status": "test",
-    "level": "medium",
-    "type": "detection",
-    "product": "windows",
-    "category": "registry_set",
-    "service": "",
-    "tags": [
-      "attack.persistence",
-      "attack.defense-impairment",
-      "attack.t1112"
-    ],
-    "author": "frack113",
-    "date": "2022-03-18",
-    "modified": "2023-08-17",
-    "description": "Detects registry modifications that disable internal tools or functions in explorer (malware like Agent Tesla uses this technique)",
-    "path": "rules/windows/registry_set/registry_set_set_nopolicies_user.yml",
-    "upstream_path": "rules/windows/registry/registry_set/registry_set_set_nopolicies_user.yml"
   },
   {
     "id": "868df2d1-0939-4562-83a7-27408c4a1ada",

@@ -1,9 +1,9 @@
 {
-  "total_rules": 3793,
+  "total_rules": 3794,
   "by_platform": {
     "windows": 2885,
     "cloud": 262,
-    "linux": 248,
+    "linux": 249,
     "web": 145,
     "application": 101,
     "macos": 75,
@@ -11,7 +11,7 @@
     "other": 11
   },
   "by_ruleset": {
-    "core": 3154,
+    "core": 3155,
     "emerging-threats": 473,
     "threat-hunting": 140,
     "placeholder": 23,
@@ -19,19 +19,19 @@
   },
   "by_level": {
     "high": 1731,
-    "medium": 1515,
+    "medium": 1516,
     "low": 342,
     "critical": 177,
     "informational": 28
   },
   "by_status": {
-    "test": 3343,
-    "experimental": 346,
+    "test": 3342,
+    "experimental": 348,
     "stable": 104
   },
   "by_product": {
     "windows": 2885,
-    "linux": 248,
+    "linux": 249,
     "unset": 169,
     "azure": 131,
     "macos": 75,
@@ -63,11 +63,11 @@
     "juniper": 1
   },
   "by_type": {
-    "detection": 3793
+    "detection": 3794
   },
   "top_attack_tactics": {
     "stealth": 1101,
-    "execution": 1053,
+    "execution": 1054,
     "persistence": 866,
     "privilege-escalation": 772,
     "defense-impairment": 419,
