@@ -26299,6 +26299,18 @@
     "conversion": "ok"
   },
   {
+    "id": "a30c7711-1b6d-49eb-9925-a4b2c0e9f039",
+    "title": "Lynx Ransomware Execution Pattern",
+    "platform": "windows",
+    "level": "high",
+    "status": "experimental",
+    "path": "rules/windows/process_creation/proc_creation_win_malware_lynx.yml",
+    "expression": "containAll(command_line, ' --mode ', ' fast', ' --noprint')",
+    "keywords": [],
+    "keywords_regex": "",
+    "conversion": "ok"
+  },
+  {
     "id": "29fd07fc-9cfd-4331-b7fd-cc18dfa21052",
     "title": "Potential Maze Ransomware Activity",
     "platform": "windows",

@@ -49387,6 +49387,29 @@
     "upstream_path": "rules-emerging-threats/2024/Malware/Lummac-Stealer/proc_creation_win_malware_lummac_more_vbc.yml"
   },
   {
+    "id": "a30c7711-1b6d-49eb-9925-a4b2c0e9f039",
+    "title": "Lynx Ransomware Execution Pattern",
+    "platform": "windows",
+    "ruleset": "emerging-threats",
+    "status": "experimental",
+    "level": "high",
+    "type": "detection",
+    "product": "windows",
+    "category": "process_creation",
+    "service": "",
+    "tags": [
+      "attack.impact",
+      "attack.t1486",
+      "detection.emerging-threats"
+    ],
+    "author": "Swarup-Ingale",
+    "date": "2026-06-25",
+    "modified": "",
+    "description": "Detects the execution of Lynx ransomware based on specific command line flags such as '--noprint' and '--mode fast'.",
+    "path": "rules/windows/process_creation/proc_creation_win_malware_lynx.yml",
+    "upstream_path": "rules-emerging-threats/2026/Malware/Lynx-Ransomware/proc_creation_win_malware_lynx.yml"
+  },
+  {
     "id": "29fd07fc-9cfd-4331-b7fd-cc18dfa21052",
     "title": "Potential Maze Ransomware Activity",
     "platform": "windows",
