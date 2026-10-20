@@ -4747,7 +4747,7 @@
     ],
     "author": "Yochana Henderson, '@Yochana-H'",
     "date": "2022-06-01",
-    "modified": "",
+    "modified": "2026-10-17",
     "description": "Define a baseline threshold for failed sign-ins due to Conditional Access failures",
     "path": "rules/cloud/azure/azure_conditional_access_failure.yml",
     "upstream_path": "rules/cloud/azure/signin_logs/azure_conditional_access_failure.yml"
@@ -14965,7 +14965,7 @@
     ],
     "author": "Alejandro Ortuno, oscd.community",
     "date": "2020-10-21",
-    "modified": "2021-11-27",
+    "modified": "2026-10-19",
     "description": "Detects enumeration of local or remote network services.",
     "path": "rules/macos/process_creation/proc_creation_macos_network_service_scanning.yml",
     "upstream_path": "rules/macos/process_creation/proc_creation_macos_network_service_scanning.yml"
@@ -28748,7 +28748,7 @@
     ],
     "author": "Swachchhanda Shrawan Poudel (Nextron Systems)",
     "date": "2025-12-10",
-    "modified": "",
+    "modified": "2026-10-14",
     "description": "Detects legitimate applications writing any type of file to uncommon or suspicious locations that are not typical for application data storage or execution.\nAdversaries may leverage legitimate applications (Living off the Land Binaries - LOLBins) to drop or download malicious files to uncommon locations on the system to evade detection by security solutions.",
     "path": "rules/windows/file_event/file_event_win_susp_legitimate_app_dropping_in_uncommon_location.yml",
     "upstream_path": "rules/windows/file/file_event/file_event_win_susp_legitimate_app_dropping_in_uncommon_location.yml"
@@ -31553,8 +31553,8 @@
     ],
     "author": "Nasreddine Bencherchali (Nextron Systems), Wietze Beukema (project and research)",
     "date": "2022-08-17",
-    "modified": "2025-10-07",
-    "description": "Detects potential DLL sideloading of DLLs that are part of antivirus software suchas McAfee, Symantec...etc",
+    "modified": "2026-10-19",
+    "description": "Detects potential DLL sideloading of DLLs that are part of antivirus software such as McAfee, Symantec...etc",
     "path": "rules/windows/image_load/image_load_side_load_antivirus.yml",
     "upstream_path": "rules/windows/image_load/image_load_side_load_antivirus.yml"
   },
@@ -44502,6 +44502,28 @@
     "description": "Detects the use of CreateMiniDump hack tool used to dump the LSASS process memory for credential extraction on the attacker's machine",
     "path": "rules/windows/process_creation/proc_creation_win_hktl_createminidump.yml",
     "upstream_path": "rules/windows/process_creation/proc_creation_win_hktl_createminidump.yml"
+  },
+  {
+    "id": "0aaa9689-9f38-491d-bd4d-a9af6eb43138",
+    "title": "HackTool - Defendnot Execution",
+    "platform": "windows",
+    "ruleset": "core",
+    "status": "experimental",
+    "level": "high",
+    "type": "detection",
+    "product": "windows",
+    "category": "process_creation",
+    "service": "",
+    "tags": [
+      "attack.defense-impairment",
+      "attack.t1685"
+    ],
+    "author": "Swachchhanda Shrawan Poudel (Nextron Systems)",
+    "date": "2026-09-27",
+    "modified": "",
+    "description": "Detects the execution of the hacktool Defendnot. Defendnot is a hacktool that abuses Microsoft undocumented WSC (Windows Security Center) API\nto disable Windows Defender by registering itself as a fake antivirus product. Threat actors often use these kind of tools to bypass security measures.",
+    "path": "rules/windows/process_creation/proc_creation_win_hktl_defendnot_execution.yml",
+    "upstream_path": "rules/windows/process_creation/proc_creation_win_hktl_defendnot_execution.yml"
   },
   {
     "id": "d78b5d61-187d-44b6-bf02-93486a80de5a",
@@ -71499,6 +71521,28 @@
     "upstream_path": "rules/windows/powershell/powershell_script/posh_ps_get_process_security_software_discovery.yml"
   },
   {
+    "id": "50b159ba-a147-40f7-9d11-561e724b8a2e",
+    "title": "HackTool - Defendnot Installation via PowerShell One-Liner",
+    "platform": "windows",
+    "ruleset": "core",
+    "status": "experimental",
+    "level": "high",
+    "type": "detection",
+    "product": "windows",
+    "category": "ps_script",
+    "service": "",
+    "tags": [
+      "attack.defense-impairment",
+      "attack.t1685"
+    ],
+    "author": "Swachchhanda Shrawan Poudel (Nextron Systems)",
+    "date": "2026-10-18",
+    "modified": "",
+    "description": "Detects execution of Defendnot installation via PowerShell one-liner that downloads and executes the Defendnot script from a remote URL.\nDefendnot is a hacktool that abuses Microsoft's undocumented WSC API to disable Windows Defender by registering itself as a fake antivirus product.",
+    "path": "rules/windows/ps_script/posh_ps_hktl_defendnot_installation.yml",
+    "upstream_path": "rules/windows/powershell/powershell_script/posh_ps_hktl_defendnot_installation.yml"
+  },
+  {
     "id": "3245cd30-e015-40ff-a31d-5cadd5f377ec",
     "title": "HackTool - Rubeus Execution - ScriptBlock",
     "platform": "windows",
@@ -79766,6 +79810,28 @@
     "upstream_path": "rules/windows/registry/registry_set/registry_set_scr_file_executed_by_rundll32.yml"
   },
   {
+    "id": "9991c683-05aa-47b7-a865-df14dc4b9dc4",
+    "title": "Potential HackTool - Defendnot Security Center AV Registry Modification",
+    "platform": "windows",
+    "ruleset": "core",
+    "status": "experimental",
+    "level": "medium",
+    "type": "detection",
+    "product": "windows",
+    "category": "registry_set",
+    "service": "",
+    "tags": [
+      "attack.defense-impairment",
+      "attack.t1685"
+    ],
+    "author": "Swachchhanda Shrawan Poudel (Nextron Systems)",
+    "date": "2026-10-18",
+    "modified": "",
+    "description": "Detects modification of the Microsoft Security Center AV registry keys, particularly those related with DisplayName, ProductEXE, or ReportingExe.\nThese keys typically store information about antivirus products installed on the system, which is Windows Defender or third-party antivirus software.\nBut, if these keys holds unexpected values or are modified in a suspicious manner, it could indicate an attempt to tamper with the security settings of the system.",
+    "path": "rules/windows/registry_set/registry_set_security_center_av_registry_modification.yml",
+    "upstream_path": "rules/windows/registry/registry_set/registry_set_security_center_av_registry_modification.yml"
+  },
+  {
     "id": "6c304b02-06e6-402d-8be4-d5833cdf8198",
     "title": "Potential SentinelOne Shell Context Menu Scan Command Tampering",
     "platform": "windows",
@@ -82293,6 +82359,32 @@
     "description": "Detects the creation of a local hidden user account which should not happen for event ID 4720.",
     "path": "rules/windows/security/win_security_hidden_user_creation.yml",
     "upstream_path": "rules/windows/builtin/security/win_security_hidden_user_creation.yml"
+  },
+  {
+    "id": "015ff932-4156-41ae-9d4c-1443995611fd",
+    "title": "HackTool - Defendnot Default Scheduled Task Activity",
+    "platform": "windows",
+    "ruleset": "core",
+    "status": "experimental",
+    "level": "high",
+    "type": "detection",
+    "product": "windows",
+    "category": "",
+    "service": "security",
+    "tags": [
+      "attack.execution",
+      "attack.persistence",
+      "attack.privilege-escalation",
+      "attack.defense-impairment",
+      "attack.t1053.005",
+      "attack.t1685"
+    ],
+    "author": "Swachchhanda Shrawan Poudel (Nextron Systems)",
+    "date": "2026-10-18",
+    "modified": "",
+    "description": "Detects the default scheduled task activity of the hacktool Defendnot, which is used to disable Windows Defender Security.\nIt abuses Microsoft's undocumented WSC API to register itself as a fake antivirus product, allowing it to disable Windows Defender.\nDuring installation, Defendnot creates a scheduled task named 'defendnot' with the argument '--from-autorun' for persistence.",
+    "path": "rules/windows/security/win_security_hktl_defendnot_default_scheduled_task_activity.yml",
+    "upstream_path": "rules/windows/builtin/security/win_security_hktl_defendnot_default_scheduled_task_activity.yml"
   },
   {
     "id": "98054878-5eab-434c-85d4-72d4e5a3361b",
