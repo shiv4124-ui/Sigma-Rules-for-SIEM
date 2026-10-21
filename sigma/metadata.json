@@ -1,13 +1,13 @@
 {
   "upstream_repo": "SigmaHQ/sigma",
   "upstream_branch": "master",
-  "upstream_commit": "f083329893e4f44869bf7d283c7aa001ad86a0cd",
-  "fetched_at": "2026-10-20T02:55:53+00:00",
+  "upstream_commit": "020ce4f0b59b441cd26ca33da631b81a43066044",
+  "fetched_at": "2026-10-21T02:56:18+00:00",
   "layout": "platform",
-  "rule_files": 3799,
-  "indexed_rules": 3799,
+  "rule_files": 3803,
+  "indexed_rules": 3803,
   "rules_per_platform": {
-    "windows": 2890,
+    "windows": 2894,
     "cloud": 262,
     "linux": 249,
     "web": 145,
