@@ -1295,6 +1295,18 @@
     "conversion": "ok"
   },
   {
+    "id": "ab18a523-e093-4ac6-8303-8c47431f4fca",
+    "title": "AWS Bucket Block Public Access Weakened",
+    "platform": "cloud",
+    "level": "medium",
+    "status": "experimental",
+    "path": "rules/cloud/aws/aws_cloudtrail_bucket_block_public_access_weakened.yml",
+    "expression": "(equalsAny(event_source, 's3.amazonaws.com') and equalsAny(event_name, 'PutBucketPublicAccessBlock')) and (equalsAny(request_parameters.public_access_block_configuration.restrict_public_buckets, 'false') or equalsAny(request_parameters.public_access_block_configuration.block_public_acls, 'false') or equalsAny(request_parameters.public_access_block_configuration.block_public_policy, 'false') or equalsAny(request_parameters.public_access_block_configuration.ignore_public_acls, 'false')) and (equalsAny(error_code, 'Success') or isNull(error_code))",
+    "keywords": [],
+    "keywords_regex": "",
+    "conversion": "ok"
+  },
+  {
     "id": "39c9f26d-6e3b-4dbb-9c7a-4154b0281112",
     "title": "AWS Bucket Deleted",
     "platform": "cloud",

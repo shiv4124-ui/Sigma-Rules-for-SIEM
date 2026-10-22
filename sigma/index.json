@@ -2363,6 +2363,28 @@
     "upstream_path": "rules/cloud/aws/cloudtrail/aws_cloudtrail_bedrock_guardrail_updated.yml"
   },
   {
+    "id": "ab18a523-e093-4ac6-8303-8c47431f4fca",
+    "title": "AWS Bucket Block Public Access Weakened",
+    "platform": "cloud",
+    "ruleset": "core",
+    "status": "experimental",
+    "level": "medium",
+    "type": "detection",
+    "product": "aws",
+    "category": "",
+    "service": "cloudtrail",
+    "tags": [
+      "attack.defense-impairment",
+      "attack.t1686.001"
+    ],
+    "author": "Shoban Chiddarth",
+    "date": "2026-10-21",
+    "modified": "",
+    "description": "Detects the weakening of \"Block Public Access\" setting of S3 buckets in CloudTrail logs.\nMonitoring changes to Block Public Access settings is critical, as attackers may disable these safeguards before exposing a bucket through a public ACL or bucket policy.",
+    "path": "rules/cloud/aws/aws_cloudtrail_bucket_block_public_access_weakened.yml",
+    "upstream_path": "rules/cloud/aws/cloudtrail/aws_cloudtrail_bucket_block_public_access_weakened.yml"
+  },
+  {
     "id": "39c9f26d-6e3b-4dbb-9c7a-4154b0281112",
     "title": "AWS Bucket Deleted",
     "platform": "cloud",
