@@ -12185,7 +12185,7 @@
   },
   {
     "id": "b45e3d6f-42c6-47d8-a478-df6bd6cf534c",
-    "title": "Local System Accounts Discovery - Linux",
+    "title": "Local System Accounts Discovery Attempt - Linux",
     "platform": "linux",
     "ruleset": "core",
     "status": "test",
@@ -12200,14 +12200,14 @@
     ],
     "author": "Alejandro Ortuno, oscd.community, CheraghiMilad",
     "date": "2020-10-08",
-    "modified": "2024-12-10",
-    "description": "Detects enumeration of local system accounts. This information can help adversaries determine which local accounts exist on a system to aid in follow-on behavior.",
+    "modified": "2026-11-03",
+    "description": "Detects attempts to enumerate local user accounts via common Linux utilities and sensitive file access.\nAdversaries may read files such as /etc/passwd, /etc/shadow, and /etc/sudoers, or use tools like getent,\nid, who, and finger to identify accounts and privilege levels on a compromised system.",
     "path": "rules/linux/process_creation/proc_creation_lnx_local_account.yml",
     "upstream_path": "rules/linux/process_creation/proc_creation_lnx_local_account.yml"
   },
   {
     "id": "676381a6-15ca-4d73-a9c8-6a22e970b90d",
-    "title": "Local Groups Discovery - Linux",
+    "title": "Local Groups Discovery Attempt - Linux",
     "platform": "linux",
     "ruleset": "core",
     "status": "test",
@@ -12222,8 +12222,8 @@
     ],
     "author": "Ömer Günal, Alejandro Ortuno, oscd.community",
     "date": "2020-10-11",
-    "modified": "2025-06-04",
-    "description": "Detects enumeration of local system groups. Adversaries may attempt to find local system groups and permission settings",
+    "modified": "2026-11-03",
+    "description": "Detects attempts to enumerate local groups and group membership via common Linux utilities and sensitive file access.\nAdversaries may read files such as /etc/group and /etc/gshadow, or use tools like getent and groups to identify\ngroup memberships and privilege assignments on a compromised system.",
     "path": "rules/linux/process_creation/proc_creation_lnx_local_groups.yml",
     "upstream_path": "rules/linux/process_creation/proc_creation_lnx_local_groups.yml"
   },
@@ -13695,8 +13695,8 @@
     ],
     "author": "Daniil Yugoslavskiy, oscd.community",
     "date": "2020-10-19",
-    "modified": "2023-01-17",
-    "description": "Detects usage of system utilities to discover system network connections",
+    "modified": "2026-11-03",
+    "description": "Detects attempts to discover system network connections via common Linux utilities.\nAdversaries may use tools such as netstat, ss, or lsof to enumerate active connections,\nopen ports, and listening services on a compromised system.",
     "path": "rules/linux/process_creation/proc_creation_lnx_system_network_connections_discovery.yml",
     "upstream_path": "rules/linux/process_creation/proc_creation_lnx_system_network_connections_discovery.yml"
   },
@@ -21173,13 +21173,14 @@
     "tags": [
       "attack.impact",
       "attack.t1499",
+      "cve.2024-49112",
       "cve.2024-49113",
       "detection.emerging-threats"
     ],
     "author": "Samuel Monsempes",
     "date": "2025-01-08",
-    "modified": "",
-    "description": "Detects exploitation attempt of CVE-2024-49113 known as LDAP Nightmare, based on \"Application Error\" log where the faulting application is \"lsass.exe\" and the faulting module is \"WLDAP32.dll\".",
+    "modified": "2026-11-03",
+    "description": "Detects an Application Error (EventID 1000) where LSASS crashes in the Windows LDAP client module WLDAP32.dll.\nThis is the crash telemetry produced by the public LDAP Nightmare proof-of-concept for CVE-2024-49113 (denial of service).\nCVE-2024-49112 is the related LDAP remote code execution issue on the same LDAP client path. The published exploit chain covers the denial of service only: code execution would run inside LSASS and leave no Windows log of its own.\nThe cve.2024-49112 tag marks that shared path, not a coverage claim: this rule detects the CVE-2024-49113 denial of service only.",
     "path": "rules/windows/application/win_application_error_exploit_cve_2024_49113_ldap_nightmare.yml",
     "upstream_path": "rules-emerging-threats/2024/Exploits/CVE-2024-49113/win_application_error_exploit_cve_2024_49113_ldap_nightmare.yml"
   },
@@ -25085,7 +25086,7 @@
     ],
     "author": "Nasreddine Bencherchali (Nextron Systems)",
     "date": "2023-05-04",
-    "modified": "",
+    "modified": "2026-11-02",
     "description": "Detects PowerShell script file creation with specific name or suffix which was seen being used often by FIN7 PowerShell scripts",
     "path": "rules/windows/file_event/file_event_win_apt_fin7_powershell_scripts_naming_convention.yml",
     "upstream_path": "rules-emerging-threats/2023/TA/FIN7/file_event_win_apt_fin7_powershell_scripts_naming_convention.yml"
@@ -28358,7 +28359,7 @@
     ],
     "author": "frack113",
     "date": "2022-03-09",
-    "modified": "2025-02-24",
+    "modified": "2026-11-01",
     "description": "Detects the creation of an executable by another executable.",
     "path": "rules/windows/file_event/file_event_win_susp_binary_dropper.yml",
     "upstream_path": "rules-threat-hunting/windows/file/file_event/file_event_win_susp_binary_dropper.yml"
@@ -30441,7 +30442,7 @@
     ],
     "author": "Thurein Oo, Nasreddine Bencherchali (Nextron Systems)",
     "date": "2023-10-18",
-    "modified": "",
+    "modified": "2026-11-02",
     "description": "Detects sideloading of trojanized DLLs used in Lazarus APT campaign in the case of a Spanish aerospace company",
     "path": "rules/windows/image_load/image_load_apt_lazarus_side_load_activity.yml",
     "upstream_path": "rules-emerging-threats/2023/TA/Lazarus/image_load_apt_lazarus_side_load_activity.yml"
@@ -41182,7 +41183,7 @@
     ],
     "author": "Nasreddine Bencherchali (Nextron Systems)",
     "date": "2023-06-12",
-    "modified": "",
+    "modified": "2026-11-01",
     "description": "Detects child processes of \"dfsvc\" which indicates a ClickOnce deployment execution.",
     "path": "rules/windows/process_creation/proc_creation_win_dfsvc_child_processes.yml",
     "upstream_path": "rules-threat-hunting/windows/process_creation/proc_creation_win_dfsvc_child_processes.yml"
@@ -79895,7 +79896,7 @@
     ],
     "author": "Nasreddine Bencherchali (Nextron Systems)",
     "date": "2024-03-06",
-    "modified": "",
+    "modified": "2026-11-01",
     "description": "Detects potentially suspicious changes to the SentinelOne context menu scan command by a process other than SentinelOne.",
     "path": "rules/windows/registry_set/registry_set_sentinelone_shell_context_tampering.yml",
     "upstream_path": "rules/windows/registry/registry_set/registry_set_sentinelone_shell_context_tampering.yml"

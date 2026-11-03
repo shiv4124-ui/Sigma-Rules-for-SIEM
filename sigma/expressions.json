@@ -6605,24 +6605,24 @@
   },
   {
     "id": "b45e3d6f-42c6-47d8-a478-df6bd6cf534c",
-    "title": "Local System Accounts Discovery - Linux",
+    "title": "Local System Accounts Discovery Attempt - Linux",
     "platform": "linux",
     "level": "low",
     "status": "test",
     "path": "rules/linux/process_creation/proc_creation_lnx_local_account.yml",
-    "expression": "(endsWithAny(process_path, '/lastlog') or containAny(command_line, '\\'x:0:\\'') or (endsWithAny(process_path, '/cat', '/ed', '/head', '/more', '/nano', '/tail', '/vi', '/vim', '/less', '/emacs', '/sqlite3', '/makemap') and containAny(command_line, '/etc/passwd', '/etc/shadow', '/etc/sudoers', '/etc/spwd.db', '/etc/pwd.db', '/etc/master.passwd')) or endsWithAny(process_path, '/id') or (endsWithAny(process_path, '/lsof') and containAny(command_line, '-u')))",
+    "expression": "(endsWithAny(process_path, '/lastlog', '/last', '/lastb') or containAny(command_line, 'x:0:') or (endsWithAny(process_path, '/cat', '/ed', '/emacs', '/head', '/less', '/makemap', '/more', '/nano', '/sqlite3', '/tail', '/vi', '/vim') and containAny(command_line, '/etc/passwd', '/etc/shadow', '/etc/sudoers', 'master.passwd', 'pwd.db')) or endsWithAny(process_path, '/id') or (endsWithAny(process_path, '/lsof') and containAny(command_line, '-u')) or (endsWithAny(process_path, '/getent') and containAny(command_line, ' passwd', ' shadow')) or endsWithAny(process_path, '/finger', '/users', '/w', '/who') or (endsWithAny(process_path, '/ypcat') and containAny(command_line, 'passwd'))) and not (containAny(parent_command_line, '/usr/bin/landscape-sysinfo') and endsWithAny(process_path, '/who'))",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
   },
   {
     "id": "676381a6-15ca-4d73-a9c8-6a22e970b90d",
-    "title": "Local Groups Discovery - Linux",
+    "title": "Local Groups Discovery Attempt - Linux",
     "platform": "linux",
     "level": "low",
     "status": "test",
     "path": "rules/linux/process_creation/proc_creation_lnx_local_groups.yml",
-    "expression": "(endsWithAny(process_path, '/groups') or (endsWithAny(process_path, '/cat', '/ed', '/head', '/less', '/more', '/nano', '/tail', '/vi', '/vim') and containAny(command_line, '/etc/group')))",
+    "expression": "(endsWithAny(process_path, '/groups') or (endsWithAny(process_path, '/cat', '/ed', '/emacs', '/head', '/less', '/makemap', '/more', '/nano', '/sqlite3', '/tail', '/vi', '/vim') and containAny(command_line, 'group', 'gshadow')) or (endsWithAny(process_path, '/getent') and containAny(command_line, ' group', ' gshadow')) or (endsWithAny(process_path, '/ypcat') and containAny(command_line, 'group')))",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
@@ -7402,7 +7402,7 @@
     "level": "low",
     "status": "test",
     "path": "rules/linux/process_creation/proc_creation_lnx_system_network_connections_discovery.yml",
-    "expression": "endsWithAny(process_path, '/who', '/w', '/last', '/lsof', '/netstat') and not (containAny(parent_command_line, '/usr/bin/landscape-sysinfo') and endsWithAny(process_path, '/who'))",
+    "expression": "endsWithAny(process_path, '/lsof', '/netstat', '/sockstat', '/ss')",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
@@ -11578,7 +11578,7 @@
     "level": "high",
     "status": "experimental",
     "path": "rules/windows/application/win_application_error_exploit_cve_2024_49113_ldap_nightmare.yml",
-    "expression": "(equalsAny(provider_name, 'Application Error') and equalsAny(event_id, 1000) and containAll(data, 'lsass.exe', 'WLDAP32.dll'))",
+    "expression": "((equalsAny(provider_name, 'Application Error') and equalsAny(event_id, 1000) and equalsAny(app_name, 'lsass.exe') and equalsAny(module_name, 'WLDAP32.dll')) or (equalsAny(provider_name, 'Application Error') and equalsAny(event_id, 1000) and containAll(data, 'lsass.exe', 'WLDAP32.dll')))",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
@@ -13732,7 +13732,7 @@
     "level": "high",
     "status": "test",
     "path": "rules/windows/file_event/file_event_win_apt_fin7_powershell_scripts_naming_convention.yml",
-    "expression": "(endsWithAny(file_path, '_64refl.ps1') or equalsAny(file_path, 'host_ip.ps1'))",
+    "expression": "endsWithAny(file_path, '_64refl.ps1', '\\\\host_ip.ps1')",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
@@ -15448,7 +15448,7 @@
     "level": "low",
     "status": "test",
     "path": "rules/windows/file_event/file_event_win_susp_binary_dropper.yml",
-    "expression": "(endsWithAny(process_path, '.exe') and endsWithAny(file_path, '.exe')) and not (endsWithAny(process_path, ':\\\\Windows\\\\System32\\\\msiexec.exe', ':\\\\Windows\\\\system32\\\\cleanmgr.exe', ':\\\\Windows\\\\explorer.exe', ':\\\\WINDOWS\\\\system32\\\\dxgiadaptercache.exe', ':\\\\WINDOWS\\\\system32\\\\Dism.exe', ':\\\\Windows\\\\System32\\\\wuauclt.exe') or (endsWithAny(process_path, ':\\\\WINDOWS\\\\system32\\\\svchost.exe') and containAny(file_path, ':\\\\Windows\\\\SoftwareDistribution\\\\Download\\\\')) or (endsWithAny(process_path, ':\\\\Windows\\\\system32\\\\svchost.exe') and containAll(file_path, ':\\\\WUDownloadCache\\\\', '\\\\WindowsUpdateBox.exe')) or (containAny(process_path, ':\\\\WINDOWS\\\\SoftwareDistribution\\\\Download\\\\') and endsWithAny(process_path, '\\\\WindowsUpdateBox.Exe') and containAny(file_path, ':\\\\$WINDOWS.~BT\\\\Sources\\\\')) or (containAny(process_path, ':\\\\Windows\\\\WinSxS\\\\') and endsWithAny(process_path, '\\\\TiWorker.exe')) or (containAny(process_path, ':\\\\Program Files\\\\', ':\\\\Program Files (x86)\\\\') or containAny(file_path, ':\\\\Program Files\\\\', ':\\\\Program Files (x86)\\\\')) or containAny(process_path, ':\\\\ProgramData\\\\Microsoft\\\\Windows Defender\\\\', ':\\\\Program Files\\\\Windows Defender\\\\') or containAny(file_path, '\\\\AppData\\\\Local\\\\Microsoft\\\\WindowsApps\\\\') or (endsWithAny(process_path, '\\\\AppData\\\\Local\\\\Microsoft\\\\Teams\\\\Update.exe') and endsWithAny(file_path, '\\\\AppData\\\\Local\\\\Microsoft\\\\Teams\\\\stage\\\\Teams.exe', '\\\\AppData\\\\Local\\\\Microsoft\\\\Teams\\\\stage\\\\Squirrel.exe', '\\\\AppData\\\\Local\\\\Microsoft\\\\SquirrelTemp\\\\tempb\\\\')) or (containAny(process_path, ':\\\\Windows\\\\Microsoft.NET\\\\Framework\\\\', ':\\\\Windows\\\\Microsoft.NET\\\\Framework64\\\\', ':\\\\Windows\\\\Microsoft.NET\\\\FrameworkArm\\\\', ':\\\\Windows\\\\Microsoft.NET\\\\FrameworkArm64\\\\') and endsWithAny(process_path, '\\\\mscorsvw.exe') and containAny(file_path, ':\\\\Windows\\\\assembly\\\\NativeImages_')) or (containAny(process_path, '\\\\AppData\\\\Local\\\\') and endsWithAny(process_path, '\\\\Microsoft VS Code\\\\Code.exe') and containAny(file_path, '\\\\.vscode\\\\extensions\\\\')) or (endsWithAny(process_path, '\\\\AppData\\\\Local\\\\GitHubDesktop\\\\Update.exe') and containAny(file_path, '\\\\AppData\\\\Local\\\\SquirrelTemp\\\\')) or (containAny(process_path, ':\\\\WINDOWS\\\\TEMP\\\\') or containAny(file_path, ':\\\\WINDOWS\\\\TEMP\\\\')) or (containAny(process_path, '\\\\AppData\\\\Local\\\\Temp\\\\') or containAny(file_path, '\\\\AppData\\\\Local\\\\Temp\\\\')) or (containAny(process_path, ':\\\\Windows\\\\Microsoft.NET\\\\Framework') and endsWithAny(process_path, '\\\\mscorsvw.exe') and containAny(file_path, ':\\\\Windows\\\\assembly'))) and not ((containAny(process_path, '\\\\Python27\\\\python.exe') and containAny(file_path, '\\\\Python27\\\\Lib\\\\site-packages\\\\', '\\\\Python27\\\\Scripts\\\\', '\\\\AppData\\\\Local\\\\Temp\\\\')) or (containAny(process_path, '\\\\AppData\\\\Local\\\\SquirrelTemp\\\\Update.exe') and containAny(file_path, '\\\\AppData\\\\Local')) or (endsWithAny(process_path, '\\\\ChromeSetup.exe') and containAny(file_path, '\\\\Google')))",
+    "expression": "(endsWithAny(process_path, '.exe') and endsWithAny(file_path, '.exe')) and not (endsWithAny(process_path, ':\\\\Windows\\\\System32\\\\msiexec.exe', ':\\\\Windows\\\\system32\\\\cleanmgr.exe', ':\\\\Windows\\\\explorer.exe', ':\\\\WINDOWS\\\\system32\\\\dxgiadaptercache.exe', ':\\\\WINDOWS\\\\system32\\\\Dism.exe', ':\\\\Windows\\\\System32\\\\wuauclt.exe') or (endsWithAny(process_path, ':\\\\WINDOWS\\\\system32\\\\svchost.exe') and containAny(file_path, ':\\\\Windows\\\\SoftwareDistribution\\\\Download\\\\')) or (endsWithAny(process_path, ':\\\\Windows\\\\system32\\\\svchost.exe') and containAll(file_path, ':\\\\WUDownloadCache\\\\', '\\\\WindowsUpdateBox.exe')) or (containAny(process_path, ':\\\\WINDOWS\\\\SoftwareDistribution\\\\Download\\\\') and endsWithAny(process_path, '\\\\WindowsUpdateBox.Exe') and containAny(file_path, ':\\\\$WINDOWS.~BT\\\\Sources\\\\')) or (containAny(process_path, ':\\\\Windows\\\\WinSxS\\\\') and endsWithAny(process_path, '\\\\TiWorker.exe')) or (containAny(process_path, ':\\\\Program Files\\\\', ':\\\\Program Files (x86)\\\\') or containAny(file_path, ':\\\\Program Files\\\\', ':\\\\Program Files (x86)\\\\')) or containAny(process_path, ':\\\\ProgramData\\\\Microsoft\\\\Windows Defender\\\\', ':\\\\Program Files\\\\Windows Defender\\\\') or containAny(file_path, '\\\\AppData\\\\Local\\\\Microsoft\\\\WindowsApps\\\\') or (endsWithAny(process_path, '\\\\AppData\\\\Local\\\\Microsoft\\\\Teams\\\\Update.exe') and endsWithAny(file_path, '\\\\AppData\\\\Local\\\\Microsoft\\\\Teams\\\\stage\\\\Teams.exe', '\\\\AppData\\\\Local\\\\Microsoft\\\\Teams\\\\stage\\\\Squirrel.exe')) or (endsWithAny(process_path, '\\\\AppData\\\\Local\\\\Microsoft\\\\Teams\\\\Update.exe') and containAny(file_path, '\\\\AppData\\\\Local\\\\Microsoft\\\\SquirrelTemp\\\\tempb\\\\')) or (containAny(process_path, ':\\\\Windows\\\\Microsoft.NET\\\\Framework\\\\', ':\\\\Windows\\\\Microsoft.NET\\\\Framework64\\\\', ':\\\\Windows\\\\Microsoft.NET\\\\FrameworkArm\\\\', ':\\\\Windows\\\\Microsoft.NET\\\\FrameworkArm64\\\\') and endsWithAny(process_path, '\\\\mscorsvw.exe') and containAny(file_path, ':\\\\Windows\\\\assembly\\\\NativeImages_')) or (containAny(process_path, '\\\\AppData\\\\Local\\\\') and endsWithAny(process_path, '\\\\Microsoft VS Code\\\\Code.exe') and containAny(file_path, '\\\\.vscode\\\\extensions\\\\')) or (endsWithAny(process_path, '\\\\AppData\\\\Local\\\\GitHubDesktop\\\\Update.exe') and containAny(file_path, '\\\\AppData\\\\Local\\\\SquirrelTemp\\\\')) or (containAny(process_path, ':\\\\WINDOWS\\\\TEMP\\\\') or containAny(file_path, ':\\\\WINDOWS\\\\TEMP\\\\')) or (containAny(process_path, '\\\\AppData\\\\Local\\\\Temp\\\\') or containAny(file_path, '\\\\AppData\\\\Local\\\\Temp\\\\')) or (containAny(process_path, ':\\\\Windows\\\\Microsoft.NET\\\\Framework') and endsWithAny(process_path, '\\\\mscorsvw.exe') and containAny(file_path, ':\\\\Windows\\\\assembly'))) and not ((containAny(process_path, '\\\\Python27\\\\python.exe') and containAny(file_path, '\\\\Python27\\\\Lib\\\\site-packages\\\\', '\\\\Python27\\\\Scripts\\\\', '\\\\AppData\\\\Local\\\\Temp\\\\')) or (containAny(process_path, '\\\\AppData\\\\Local\\\\SquirrelTemp\\\\Update.exe') and containAny(file_path, '\\\\AppData\\\\Local')) or (endsWithAny(process_path, '\\\\ChromeSetup.exe') and containAny(file_path, '\\\\Google')))",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
@@ -16561,7 +16561,7 @@
     "level": "high",
     "status": "test",
     "path": "rules/windows/image_load/image_load_apt_lazarus_side_load_activity.yml",
-    "expression": "((equalsAny(process_path, 'C:\\\\ProgramShared\\\\PresentationHost.exe') and equalsAny(image_loaded, ':\\\\ProgramShared\\\\mscoree.dll')) or (equalsAny(process_path, 'C:\\\\ProgramData\\\\Adobe\\\\colorcpl.exe') and equalsAny(image_loaded, 'C:\\\\ProgramData\\\\Adobe\\\\colorui.dll')) or (equalsAny(process_path, 'C:\\\\ProgramData\\\\Oracle\\\\Java\\\\fixmapi.exe') and equalsAny(image_loaded, 'C:\\\\ProgramData\\\\Oracle\\\\Java\\\\mapistub.dll')) or (equalsAny(process_path, 'C:\\\\ProgramData\\\\Adobe\\\\ARM\\\\tabcal.exe') and equalsAny(image_loaded, 'C:\\\\ProgramData\\\\Adobe\\\\ARM\\\\HID.dll')))",
+    "expression": "((equalsAny(process_path, 'C:\\\\ProgramShared\\\\PresentationHost.exe') and endsWithAny(image_loaded, ':\\\\ProgramShared\\\\mscoree.dll')) or (equalsAny(process_path, 'C:\\\\ProgramData\\\\Adobe\\\\colorcpl.exe') and equalsAny(image_loaded, 'C:\\\\ProgramData\\\\Adobe\\\\colorui.dll')) or (equalsAny(process_path, 'C:\\\\ProgramData\\\\Oracle\\\\Java\\\\fixmapi.exe') and equalsAny(image_loaded, 'C:\\\\ProgramData\\\\Oracle\\\\Java\\\\mapistub.dll')) or (equalsAny(process_path, 'C:\\\\ProgramData\\\\Adobe\\\\ARM\\\\tabcal.exe') and equalsAny(image_loaded, 'C:\\\\ProgramData\\\\Adobe\\\\ARM\\\\HID.dll')))",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
@@ -22093,7 +22093,7 @@
     "level": "medium",
     "status": "test",
     "path": "rules/windows/process_creation/proc_creation_win_dfsvc_child_processes.yml",
-    "expression": "(endsWithAny(parent_process_path, '\\\\dfsvc.exe') and endsWithAny(process_path, '\\\\AppData\\\\Local\\\\Apps\\\\2.0\\\\'))",
+    "expression": "(endsWithAny(parent_process_path, '\\\\dfsvc.exe') and containAny(process_path, '\\\\AppData\\\\Local\\\\Apps\\\\2.0\\\\'))",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
@@ -42327,7 +42327,7 @@
     "level": "medium",
     "status": "test",
     "path": "rules/windows/registry_set/registry_set_sentinelone_shell_context_tampering.yml",
-    "expression": "containAny(registry_key, '\\\\shell\\\\SentinelOneScan\\\\command\\\\') and not ((startsWithAny(registry_value, 'C:\\\\Program Files\\\\SentinelOne\\\\Sentinel Agent', 'C:\\\\Program Files (x86)\\\\SentinelOne\\\\Sentinel Agent') and containAny(registry_value, '\\\\SentinelScanFromContextMenu.exe')) or endsWithAny(process_path, 'C:\\\\Program Files\\\\SentinelOne\\\\', 'C:\\\\Program Files (x86)\\\\SentinelOne\\\\'))",
+    "expression": "containAny(registry_key, '\\\\shell\\\\SentinelOneScan\\\\command\\\\') and not ((startsWithAny(registry_value, 'C:\\\\Program Files\\\\SentinelOne\\\\Sentinel Agent', 'C:\\\\Program Files (x86)\\\\SentinelOne\\\\Sentinel Agent') and containAny(registry_value, '\\\\SentinelScanFromContextMenu.exe')) or startsWithAny(process_path, 'C:\\\\Program Files\\\\SentinelOne\\\\', 'C:\\\\Program Files (x86)\\\\SentinelOne\\\\'))",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
