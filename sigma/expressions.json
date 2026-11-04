@@ -5215,7 +5215,7 @@
     "level": "high",
     "status": "experimental",
     "path": "rules/linux/file_event/file_event_lnx_exploit_cve_2025_32463.yml",
-    "expression": "endsWithAny(file_path, '/etc/nsswitch.conf') and not equalsAny(file_path, '/etc/nsswitch.conf', '/usr/etc/nsswitch.conf', '/usr/share/factory/etc/nsswitch.conf') and not (startsWithAny(file_path, '/.snapshots/') and endsWithAny(file_path, '/snapshot/etc/nsswitch.conf'))",
+    "expression": "endsWithAny(file_path, '/etc/nsswitch.conf') and not equalsAny(file_path, '/etc/nsswitch.conf', '/usr/etc/nsswitch.conf', '/usr/share/factory/etc/nsswitch.conf') and not ((startsWithAny(file_path, '/.snapshots/') and endsWithAny(file_path, '/snapshot/etc/nsswitch.conf')) or (startsWithAny(file_path, '/snap/core') and endsWithAny(file_path, '/etc/nsswitch.conf')) or (startsWithAny(file_path, '/var/tmp/dracut.') and endsWithAny(file_path, '/initramfs/etc/nsswitch.conf')))",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
@@ -22477,7 +22477,7 @@
     "level": "high",
     "status": "test",
     "path": "rules/windows/process_creation/proc_creation_win_esentutl_sensitive_file_copy.yml",
-    "expression": "((endsWithAny(process_path, '\\\\esentutl.exe') or equalsAny(original_file_name, '\\\\esentutl.exe')) and containAny(command_line, 'vss', ' /m ', ' /y ')) or containAny(command_line, '\\\\config\\\\RegBack\\\\sam', '\\\\config\\\\RegBack\\\\security', '\\\\config\\\\RegBack\\\\system', '\\\\config\\\\sam', '\\\\config\\\\security', '\\\\config\\\\system ', '\\\\repair\\\\sam', '\\\\repair\\\\security', '\\\\repair\\\\system', '\\\\windows\\\\ntds\\\\ntds.dit')",
+    "expression": "((endsWithAny(process_path, '\\\\esentutl.exe') or equalsAny(original_file_name, 'esentutl.exe')) and containAny(command_line, 'vss', ' /m ', ' /y ')) or containAny(command_line, '\\\\config\\\\RegBack\\\\sam', '\\\\config\\\\RegBack\\\\security', '\\\\config\\\\RegBack\\\\system', '\\\\config\\\\sam', '\\\\config\\\\security', '\\\\config\\\\system ', '\\\\repair\\\\sam', '\\\\repair\\\\security', '\\\\repair\\\\system', '\\\\windows\\\\ntds\\\\ntds.dit')",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
@@ -24037,7 +24037,7 @@
     "level": "critical",
     "status": "test",
     "path": "rules/windows/process_creation/proc_creation_win_hktl_inveigh.yml",
-    "expression": "(endsWithAny(process_path, '\\\\Inveigh.exe') or equalsAny(original_file_name, '\\\\Inveigh.exe', '\\\\Inveigh.dll') or equalsAny(description, 'Inveigh') or containAny(command_line, ' -SpooferIP', ' -ReplyToIPs ', ' -ReplyToDomains ', ' -ReplyToMACs ', ' -SnifferIP'))",
+    "expression": "(endsWithAny(process_path, '\\\\Inveigh.exe') or equalsAny(original_file_name, 'Inveigh.exe', 'Inveigh.dll') or equalsAny(description, 'Inveigh') or containAny(command_line, ' -SpooferIP', ' -ReplyToIPs ', ' -ReplyToDomains ', ' -ReplyToMACs ', ' -SnifferIP'))",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
@@ -27039,7 +27039,7 @@
     "level": "medium",
     "status": "test",
     "path": "rules/windows/process_creation/proc_creation_win_msiexec_dll.yml",
-    "expression": "((endsWithAny(process_path, '\\\\msiexec.exe') or equalsAny(original_file_name, '\\\\msiexec.exe')) and (containAny(command_line, ' -z ') and containAny(command_line, '.dll'))) and not endsWithAny(command_line, '\\\\MsiExec.exe\" /Z \"C:\\\\Windows\\\\CCM\\\\MsiHandler.dll\"')",
+    "expression": "((endsWithAny(process_path, '\\\\msiexec.exe') or equalsAny(original_file_name, 'msiexec.exe')) and (containAny(command_line, ' -z ') and containAny(command_line, '.dll'))) and not endsWithAny(command_line, '\\\\MsiExec.exe\" /Z \"C:\\\\Windows\\\\CCM\\\\MsiHandler.dll\"')",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
@@ -27099,7 +27099,7 @@
     "level": "high",
     "status": "test",
     "path": "rules/windows/process_creation/proc_creation_win_msiexec_masquerading.yml",
-    "expression": "(endsWithAny(process_path, '\\\\msiexec.exe') or equalsAny(original_file_name, '\\\\msiexec.exe')) and not startsWithAny(process_path, 'C:\\\\Windows\\\\System32\\\\', 'C:\\\\Windows\\\\SysWOW64\\\\', 'C:\\\\Windows\\\\WinSxS\\\\')",
+    "expression": "(endsWithAny(process_path, '\\\\msiexec.exe') or equalsAny(original_file_name, 'msiexec.exe')) and not startsWithAny(process_path, 'C:\\\\Windows\\\\System32\\\\', 'C:\\\\Windows\\\\SysWOW64\\\\', 'C:\\\\Windows\\\\WinSxS\\\\')",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
@@ -27183,7 +27183,7 @@
     "level": "medium",
     "status": "test",
     "path": "rules/windows/process_creation/proc_creation_win_mssql_sqltoolsps_susp_execution.yml",
-    "expression": "(endsWithAny(process_path, '\\\\sqltoolsps.exe') or endsWithAny(parent_process_path, '\\\\sqltoolsps.exe') or equalsAny(original_file_name, '\\\\sqltoolsps.exe')) and not endsWithAny(parent_process_path, '\\\\smss.exe')",
+    "expression": "(endsWithAny(process_path, '\\\\sqltoolsps.exe') or endsWithAny(parent_process_path, '\\\\sqltoolsps.exe') or equalsAny(original_file_name, 'sqltoolsps.exe')) and not endsWithAny(parent_process_path, '\\\\smss.exe')",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
@@ -31719,7 +31719,7 @@
     "level": "medium",
     "status": "test",
     "path": "rules/windows/process_creation/proc_creation_win_rpcping_credential_capture.yml",
-    "expression": "((endsWithAny(process_path, '\\\\RpcPing.exe') or equalsAny(original_file_name, '\\\\RpcPing.exe')) and containAny(command_line, '-s')) and ((containAny(command_line, '-u') and containAny(command_line, 'NTLM')) or (containAny(command_line, '-t') and containAny(command_line, 'ncacn_np')))",
+    "expression": "((endsWithAny(process_path, '\\\\RpcPing.exe') or equalsAny(original_file_name, 'RpcPing.exe')) and containAny(command_line, '-s')) and ((containAny(command_line, '-u') and containAny(command_line, 'NTLM')) or (containAny(command_line, '-t') and containAny(command_line, 'ncacn_np')))",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
@@ -34359,7 +34359,7 @@
     "level": "low",
     "status": "test",
     "path": "rules/windows/process_creation/proc_creation_win_susp_use_of_te_bin.yml",
-    "expression": "(endsWithAny(process_path, '\\\\te.exe') or endsWithAny(parent_process_path, '\\\\te.exe') or equalsAny(original_file_name, '\\\\te.exe'))",
+    "expression": "(endsWithAny(process_path, '\\\\te.exe') or endsWithAny(parent_process_path, '\\\\te.exe') or equalsAny(original_file_name, 'te.exe'))",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
@@ -36771,7 +36771,7 @@
     "level": "medium",
     "status": "test",
     "path": "rules/windows/process_creation/proc_creation_win_xwizard_runwizard_com_object_exec.yml",
-    "expression": "(equalsAny(command_line, 'RunWizard') and regexAny(command_line, '\\\\{[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}\\\\}'))",
+    "expression": "((endsWithAny(process_path, '/xwizard.exe') or equalsAny(original_file_name, 'xwizard.exe')) and (containAny(command_line, 'RunWizard') and regexAny(command_line, '\\\\{[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}\\\\}')))",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
