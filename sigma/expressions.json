@@ -8998,6 +8998,18 @@
     "conversion": "ok"
   },
   {
+    "id": "139ddcb3-ba90-4407-b0b1-1838131ce8e7",
+    "title": "DNS Query to Wildcard DNS Services - Network",
+    "platform": "network",
+    "level": "medium",
+    "status": "experimental",
+    "path": "rules/network/dns/net_dns_wildcard_dns_service.yml",
+    "expression": "endsWithAny(query, '.1u.ms', '.backname.io', '.nip.io', '.sslip.io', '.traefik.me', '.xip.io')",
+    "keywords": [],
+    "keywords_regex": "",
+    "conversion": "ok"
+  },
+  {
     "id": "881834a4-6659-4773-821e-1c151789d873",
     "title": "Equation Group C2 Communication",
     "platform": "network",
@@ -13162,6 +13174,18 @@
     "conversion": "ok"
   },
   {
+    "id": "4f8a1c2e-7d3b-4e5f-9a6c-0b1d2e3f4a5b",
+    "title": "DNS Query to Wildcard DNS Services - Windows",
+    "platform": "windows",
+    "level": "medium",
+    "status": "experimental",
+    "path": "rules/windows/dns_query/dns_query_win_wildcard_dns_service.yml",
+    "expression": "endsWithAny(query_name, '.1u.ms', '.backname.io', '.nip.io', '.sslip.io', '.traefik.me', '.xip.io')",
+    "keywords": [],
+    "keywords_regex": "",
+    "conversion": "ok"
+  },
+  {
     "id": "12310575-e8b1-475c-a976-57ed540b349c",
     "title": "DNS Request From Windows Script Host",
     "platform": "windows",
@@ -17066,6 +17090,18 @@
     "status": "test",
     "path": "rules/windows/image_load/image_load_office_powershell_dll_load.yml",
     "expression": "(endsWithAny(process_path, '\\\\excel.exe', '\\\\mspub.exe', '\\\\outlook.exe', '\\\\onenote.exe', '\\\\onenoteim.exe', '\\\\powerpnt.exe', '\\\\winword.exe') and containAny(image_loaded, '\\\\System.Management.Automation.Dll', '\\\\System.Management.Automation.ni.Dll'))",
+    "keywords": [],
+    "keywords_regex": "",
+    "conversion": "ok"
+  },
+  {
+    "id": "8d1e674c-5c03-4be1-949c-4b85a472dc16",
+    "title": "Microsoft Office Application Loading Task Scheduler DLL",
+    "platform": "windows",
+    "level": "medium",
+    "status": "experimental",
+    "path": "rules/windows/image_load/image_load_office_taskschd_dll_load.yml",
+    "expression": "((endsWithAny(image_loaded, '\\\\taskschd.dll') or equalsAny(original_file_name, 'taskschd.dll')) and endsWithAny(process_path, '\\\\eqnedt32.exe', '\\\\excel.exe', '\\\\fltldr.exe', '\\\\graph.exe', '\\\\msaccess.exe', '\\\\mspub.exe', '\\\\onenote.exe', '\\\\onenoteim.exe', '\\\\onenotem.exe', '\\\\outlook.exe', '\\\\powerpnt.exe', '\\\\visio.exe', '\\\\winproj.exe', '\\\\winword.exe'))",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
@@ -36771,7 +36807,7 @@
     "level": "medium",
     "status": "test",
     "path": "rules/windows/process_creation/proc_creation_win_xwizard_runwizard_com_object_exec.yml",
-    "expression": "((endsWithAny(process_path, '/xwizard.exe') or equalsAny(original_file_name, 'xwizard.exe')) and (containAny(command_line, 'RunWizard') and regexAny(command_line, '\\\\{[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}\\\\}')))",
+    "expression": "((endsWithAny(process_path, '\\\\xwizard.exe') or equalsAny(original_file_name, 'xwizard.exe')) and (containAny(command_line, 'RunWizard') and regexAny(command_line, '\\\\{[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}\\\\}')))",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
@@ -40923,7 +40959,7 @@
     "level": "medium",
     "status": "test",
     "path": "rules/windows/registry_set/registry_set_disabled_exploit_guard_net_protection_on_ms_defender.yml",
-    "expression": "(containAny(registry_key, 'SOFTWARE\\\\Policies\\\\Microsoft\\\\Windows Defender Security Center\\\\App and Browser protection\\\\DisallowExploitProtectionOverride') and equalsAny(registry_value, 'DWORD (00000001)'))",
+    "expression": "(containAny(registry_key, 'SOFTWARE\\\\Policies\\\\Microsoft\\\\Windows Defender Security Center\\\\App and Browser protection\\\\DisallowExploitProtectionOverride') and equalsAny(registry_value, 'DWORD (0x00000001)'))",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"

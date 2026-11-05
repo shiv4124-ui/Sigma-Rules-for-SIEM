@@ -16549,6 +16549,29 @@
     "upstream_path": "rules/network/dns/net_dns_wannacry_killswitch_domain.yml"
   },
   {
+    "id": "139ddcb3-ba90-4407-b0b1-1838131ce8e7",
+    "title": "DNS Query to Wildcard DNS Services - Network",
+    "platform": "network",
+    "ruleset": "core",
+    "status": "experimental",
+    "level": "medium",
+    "type": "detection",
+    "product": "",
+    "category": "dns",
+    "service": "",
+    "tags": [
+      "attack.command-and-control",
+      "attack.t1071.004",
+      "attack.t1568"
+    ],
+    "author": "MahirAli Khan",
+    "date": "2026-11-05",
+    "modified": "",
+    "description": "Detects DNS queries to public wildcard DNS services that dynamically resolve subdomains to IP addresses embedded in the subdomain.\nAdversaries abuse these services to establish C2 channels or stage phishing infrastructure without registering a custom domain, potentially to evade detection and attribution.",
+    "path": "rules/network/dns/net_dns_wildcard_dns_service.yml",
+    "upstream_path": "rules/network/dns/net_dns_wildcard_dns_service.yml"
+  },
+  {
     "id": "881834a4-6659-4773-821e-1c151789d873",
     "title": "Equation Group C2 Communication",
     "platform": "network",
@@ -24000,6 +24023,29 @@
     "upstream_path": "rules/windows/dns_query/dns_query_win_vscode_tunnel_communication.yml"
   },
   {
+    "id": "4f8a1c2e-7d3b-4e5f-9a6c-0b1d2e3f4a5b",
+    "title": "DNS Query to Wildcard DNS Services - Windows",
+    "platform": "windows",
+    "ruleset": "core",
+    "status": "experimental",
+    "level": "medium",
+    "type": "detection",
+    "product": "windows",
+    "category": "dns_query",
+    "service": "",
+    "tags": [
+      "attack.command-and-control",
+      "attack.t1071.004",
+      "attack.t1568"
+    ],
+    "author": "MahirAli Khan, Swachchhanda Shrawan Poudel (Nextron Systems)",
+    "date": "2026-11-05",
+    "modified": "",
+    "description": "Detects DNS queries to public wildcard DNS services that dynamically resolve subdomains to IP addresses embedded in the subdomain.\nAdversaries abuse these services to establish C2 channels or stage phishing infrastructure without registering a custom domain, potentially to evade detection and attribution.",
+    "path": "rules/windows/dns_query/dns_query_win_wildcard_dns_service.yml",
+    "upstream_path": "rules/windows/dns_query/dns_query_win_wildcard_dns_service.yml"
+  },
+  {
     "id": "12310575-e8b1-475c-a976-57ed540b349c",
     "title": "DNS Request From Windows Script Host",
     "platform": "windows",
@@ -31417,6 +31463,31 @@
     "description": "Detects PowerShell core DLL being loaded by an Office Product",
     "path": "rules/windows/image_load/image_load_office_powershell_dll_load.yml",
     "upstream_path": "rules/windows/image_load/image_load_office_powershell_dll_load.yml"
+  },
+  {
+    "id": "8d1e674c-5c03-4be1-949c-4b85a472dc16",
+    "title": "Microsoft Office Application Loading Task Scheduler DLL",
+    "platform": "windows",
+    "ruleset": "core",
+    "status": "experimental",
+    "level": "medium",
+    "type": "detection",
+    "product": "windows",
+    "category": "image_load",
+    "service": "",
+    "tags": [
+      "attack.persistence",
+      "attack.privilege-escalation",
+      "attack.t1053.005",
+      "attack.execution",
+      "attack.t1204.002"
+    ],
+    "author": "Saksham Bhattarai, Swachchhanda Shrawan Poudel (Nextron Systems)",
+    "date": "2026-11-04",
+    "modified": "",
+    "description": "Detects a Microsoft Office application loading taskschd.dll, which exposes COM interfaces for managing Windows Scheduled Tasks.\nThis load is an early precursor to scheduled task creation or modification and has been frequently observed in macro-enabled\nmalicious documents attempting to establish persistence.",
+    "path": "rules/windows/image_load/image_load_office_taskschd_dll_load.yml",
+    "upstream_path": "rules/windows/image_load/image_load_office_taskschd_dll_load.yml"
   },
   {
     "id": "e6ce8457-68b1-485b-9bdd-3c2b5d679aa9",
@@ -69310,7 +69381,7 @@
     ],
     "author": "Ensar Şamil, @sblmsrsn, @oscd_initiative, Nasreddine Bencherchali (Nextron Systems)",
     "date": "2020-10-07",
-    "modified": "2026-11-04",
+    "modified": "2026-11-05",
     "description": "Detects the execution of Xwizard tool with the \"RunWizard\" flag and a GUID like argument.\nThis utility can be abused in order to run custom COM object created in the registry.",
     "path": "rules/windows/process_creation/proc_creation_win_xwizard_runwizard_com_object_exec.yml",
     "upstream_path": "rules/windows/process_creation/proc_creation_win_xwizard_runwizard_com_object_exec.yml"
@@ -77250,7 +77321,7 @@
     ],
     "author": "Austin Songer @austinsonger",
     "date": "2021-08-04",
-    "modified": "2023-08-17",
+    "modified": "2026-11-03",
     "description": "Detects disabling Windows Defender Exploit Guard Network Protection",
     "path": "rules/windows/registry_set/registry_set_disabled_exploit_guard_net_protection_on_ms_defender.yml",
     "upstream_path": "rules/windows/registry/registry_set/registry_set_disabled_exploit_guard_net_protection_on_ms_defender.yml"
