@@ -32021,7 +32021,7 @@
     ],
     "author": "X__Junior (Nextron Systems)",
     "date": "2023-06-09",
-    "modified": "",
+    "modified": "2026-11-05",
     "description": "Detects potential DLL sideloading of \"edputil.dll\"",
     "path": "rules/windows/image_load/image_load_side_load_edputil.yml",
     "upstream_path": "rules/windows/image_load/image_load_side_load_edputil.yml"
@@ -32471,7 +32471,7 @@
     ],
     "author": "X__Junior (Nextron Systems)",
     "date": "2023-06-09",
-    "modified": "",
+    "modified": "2026-11-05",
     "description": "Detects potential DLL sideloading of \"RjvPlatform.dll\" by \"SystemResetPlatform.exe\" located in a non-default location.",
     "path": "rules/windows/image_load/image_load_side_load_rjvplatform_non_default_location.yml",
     "upstream_path": "rules/windows/image_load/image_load_side_load_rjvplatform_non_default_location.yml"
@@ -32496,7 +32496,7 @@
     ],
     "author": "X__Junior (Nextron Systems), Nasreddine Bencherchali (Nextron Systems)",
     "date": "2023-05-14",
-    "modified": "",
+    "modified": "2026-11-05",
     "description": "Detects potential DLL sideloading of \"roboform.dll\", a DLL used by RoboForm Password Manager",
     "path": "rules/windows/image_load/image_load_side_load_robform.yml",
     "upstream_path": "rules/windows/image_load/image_load_side_load_robform.yml"
@@ -33733,7 +33733,7 @@
     ],
     "author": "@kostastsale",
     "date": "2024-01-26",
-    "modified": "",
+    "modified": "2026-11-05",
     "description": "Detects uncommon network connections to the Active Directory Web Services (ADWS) from processes not typically associated with ADWS management.",
     "path": "rules/windows/network_connection/net_connection_win_adws_unusual_connection.yml",
     "upstream_path": "rules/windows/network_connection/net_connection_win_adws_unusual_connection.yml"
@@ -41866,7 +41866,7 @@
     ],
     "author": "Austin Songer @austinsonger, Florian Roth (Nextron Systems), Nasreddine Bencherchali (Nextron Systems)",
     "date": "2021-11-26",
-    "modified": "2024-06-21",
+    "modified": "2026-11-05",
     "description": "Detects when a user is potentially trying to bypass the Windows Defender AV by renaming a tool to dump64.exe and placing it in the Visual Studio folder.\nCurrently the rule is covering only usage of procdump but other utilities can be added in order to increase coverage.",
     "path": "rules/windows/process_creation/proc_creation_win_dump64_defender_av_bypass_rename.yml",
     "upstream_path": "rules/windows/process_creation/proc_creation_win_dump64_defender_av_bypass_rename.yml"
@@ -84153,7 +84153,7 @@
     ],
     "author": "Micah Babinski (@micahbabinski), Zach Mathis (@yamatosecurity)",
     "date": "2023-01-19",
-    "modified": "2024-03-11",
+    "modified": "2026-11-03",
     "description": "Detects successful logon from public IP address via RDP. This can indicate a publicly-exposed RDP port.",
     "path": "rules/windows/security/win_security_successful_external_remote_rdp_login.yml",
     "upstream_path": "rules/windows/builtin/security/account_management/win_security_successful_external_remote_rdp_login.yml"
@@ -84181,7 +84181,7 @@
     ],
     "author": "Micah Babinski (@micahbabinski), Zach Mathis (@yamatosecurity)",
     "date": "2023-01-19",
-    "modified": "2024-03-11",
+    "modified": "2026-11-03",
     "description": "Detects successful logon from public IP address via SMB. This can indicate a publicly-exposed SMB port.",
     "path": "rules/windows/security/win_security_successful_external_remote_smb_login.yml",
     "upstream_path": "rules/windows/builtin/security/account_management/win_security_successful_external_remote_smb_login.yml"

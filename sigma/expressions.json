@@ -17365,7 +17365,7 @@
     "level": "high",
     "status": "test",
     "path": "rules/windows/image_load/image_load_side_load_edputil.yml",
-    "expression": "endsWithAny(image_loaded, '\\\\edputil.dll') and not startsWithAny(image_loaded, 'C:\\\\Windows\\\\System32\\\\', 'C:\\\\Windows\\\\SysWOW64\\\\', 'C\\\\Windows\\\\WinSxS\\\\')",
+    "expression": "endsWithAny(image_loaded, '\\\\edputil.dll') and not startsWithAny(image_loaded, 'C:\\\\Windows\\\\System32\\\\', 'C:\\\\Windows\\\\SysWOW64\\\\', 'C:\\\\Windows\\\\WinSxS\\\\')",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
@@ -17581,7 +17581,7 @@
     "level": "high",
     "status": "test",
     "path": "rules/windows/image_load/image_load_side_load_rjvplatform_non_default_location.yml",
-    "expression": "(endsWithAny(image_loaded, '\\\\RjvPlatform.dll') and equalsAny(process_path, '\\\\SystemResetPlatform.exe')) and not startsWithAny(process_path, 'C:\\\\Windows\\\\System32\\\\SystemResetPlatform\\\\')",
+    "expression": "(endsWithAny(image_loaded, '\\\\RjvPlatform.dll') and endsWithAny(process_path, '\\\\SystemResetPlatform.exe')) and not startsWithAny(process_path, 'C:\\\\Windows\\\\System32\\\\SystemResetPlatform\\\\')",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
@@ -17593,7 +17593,7 @@
     "level": "medium",
     "status": "test",
     "path": "rules/windows/image_load/image_load_side_load_robform.yml",
-    "expression": "endsWithAny(image_loaded, '\\\\roboform.dll', '\\\\roboform-x64.dll') and not (startsWithAny(process_path, ' C:\\\\Program Files (x86)\\\\Siber Systems\\\\AI RoboForm\\\\', ' C:\\\\Program Files\\\\Siber Systems\\\\AI RoboForm\\\\') and endsWithAny(process_path, '\\\\robotaskbaricon.exe', '\\\\robotaskbaricon-x64.exe'))",
+    "expression": "endsWithAny(image_loaded, '\\\\roboform.dll', '\\\\roboform-x64.dll') and not (startsWithAny(process_path, 'C:\\\\Program Files (x86)\\\\Siber Systems\\\\AI RoboForm\\\\', 'C:\\\\Program Files\\\\Siber Systems\\\\AI RoboForm\\\\') and endsWithAny(process_path, '\\\\robotaskbaricon.exe', '\\\\robotaskbaricon-x64.exe'))",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
@@ -18237,7 +18237,7 @@
     "level": "medium",
     "status": "test",
     "path": "rules/windows/network_connection/net_connection_win_adws_unusual_connection.yml",
-    "expression": "(equalsAny(initiated, true) and equalsAny(dest_port, 9389)) and not (equalsAny(process_path, 'C:\\\\Windows\\\\system32\\\\dsac.exe') or equalsAny(process_path, 'C:\\\\Program Files\\\\Microsoft Monitoring Agent\\\\') or startsWithAny(process_path, 'C:\\\\Program Files\\\\PowerShell\\\\7\\\\pwsh.exe', 'C:\\\\Program Files\\\\PowerShell\\\\7-preview\\\\pwsh.ex', 'C:\\\\Windows\\\\System32\\\\WindowsPowerShell\\\\', 'C:\\\\Windows\\\\SysWOW64\\\\WindowsPowerShell\\\\'))",
+    "expression": "(equalsAny(initiated, true) and equalsAny(dest_port, 9389)) and not (equalsAny(process_path, 'C:\\\\Windows\\\\system32\\\\dsac.exe') or startsWithAny(process_path, 'C:\\\\Program Files\\\\Microsoft Monitoring Agent\\\\') or equalsAny(process_path, 'C:\\\\Program Files\\\\PowerShell\\\\7-preview\\\\pwsh.exe', 'C:\\\\Program Files\\\\PowerShell\\\\7\\\\pwsh.exe', 'C:\\\\Windows\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell_ise.exe', 'C:\\\\Windows\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe', 'C:\\\\Windows\\\\SysWOW64\\\\WindowsPowerShell\\\\v1.0\\\\powershell_ise.exe', 'C:\\\\Windows\\\\SysWOW64\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe') or (containAny(process_path, 'C:\\\\Program Files\\\\WindowsApps\\\\Microsoft.PowerShellPreview', '\\\\AppData\\\\Local\\\\Microsoft\\\\WindowsApps\\\\Microsoft.PowerShellPreview') and endsWithAny(process_path, '\\\\pwsh.exe')))",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
@@ -22453,7 +22453,7 @@
     "level": "high",
     "status": "test",
     "path": "rules/windows/process_creation/proc_creation_win_dump64_defender_av_bypass_rename.yml",
-    "expression": "(startsWithAny(process_path, ':\\\\Program Files') and containAny(process_path, '\\\\Microsoft Visual Studio\\\\') and endsWithAny(process_path, '\\\\dump64.exe')) and (equalsAny(original_file_name, 'procdump') or containAny(command_line, ' -ma ', ' -mp '))",
+    "expression": "(startsWithAny(process_path, 'C:\\\\Program Files') and containAny(process_path, '\\\\Microsoft Visual Studio\\\\') and endsWithAny(process_path, '\\\\dump64.exe')) and (equalsAny(original_file_name, 'procdump') or containAny(command_line, ' -ma ', ' -mp '))",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
@@ -44501,7 +44501,7 @@
     "level": "medium",
     "status": "test",
     "path": "rules/windows/security/win_security_successful_external_remote_rdp_login.yml",
-    "expression": "(equalsAny(event_id, 4624) and equalsAny(logon_type, 10)) and not (cidrAny(ip_address, '::1/128', '10.0.0.0/8', '127.0.0.0/8', '172.16.0.0/12', '192.168.0.0/16', '169.254.0.0/16', 'fc00::/7', 'fe80::/10') or equalsAny(ip_address, '-'))",
+    "expression": "(equalsAny(event_id, 4624) and equalsAny(logon_type, 10)) and not (cidrAny(ip_address, '::1/128', '10.0.0.0/8', '127.0.0.0/8', '172.16.0.0/12', '192.168.0.0/16', '169.254.0.0/16', 'fc00::/7', 'fe80::/10') or isNull(ip_address) or equalsAny(ip_address, '-', ''))",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
@@ -44513,7 +44513,7 @@
     "level": "high",
     "status": "test",
     "path": "rules/windows/security/win_security_successful_external_remote_smb_login.yml",
-    "expression": "(equalsAny(event_id, 4624) and equalsAny(logon_type, 3)) and not (cidrAny(ip_address, '::1/128', '10.0.0.0/8', '127.0.0.0/8', '172.16.0.0/12', '192.168.0.0/16', '169.254.0.0/16', 'fc00::/7', 'fe80::/10') or equalsAny(ip_address, '-'))",
+    "expression": "(equalsAny(event_id, 4624) and equalsAny(logon_type, 3)) and not (cidrAny(ip_address, '::1/128', '10.0.0.0/8', '127.0.0.0/8', '172.16.0.0/12', '192.168.0.0/16', '169.254.0.0/16', 'fc00::/7', 'fe80::/10') or isNull(ip_address) or equalsAny(ip_address, '-', ''))",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
