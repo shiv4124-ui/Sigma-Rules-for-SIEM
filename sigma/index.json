@@ -28817,7 +28817,7 @@
     ],
     "author": "Swachchhanda Shrawan Poudel (Nextron Systems)",
     "date": "2025-12-10",
-    "modified": "2026-10-14",
+    "modified": "2026-10-26",
     "description": "Detects legitimate applications writing any type of file to uncommon or suspicious locations that are not typical for application data storage or execution.\nAdversaries may leverage legitimate applications (Living off the Land Binaries - LOLBins) to drop or download malicious files to uncommon locations on the system to evade detection by security solutions.",
     "path": "rules/windows/file_event/file_event_win_susp_legitimate_app_dropping_in_uncommon_location.yml",
     "upstream_path": "rules/windows/file/file_event/file_event_win_susp_legitimate_app_dropping_in_uncommon_location.yml"
@@ -34939,7 +34939,7 @@
     ],
     "author": "Ilyas Ochkov, oscd.community",
     "date": "2019-10-24",
-    "modified": "2024-03-15",
+    "modified": "2026-11-06",
     "description": "Detects uncommon outbound network activity via Kerberos default port indicating possible lateral movement or first stage PrivEsc via delegation.",
     "path": "rules/windows/network_connection/net_connection_win_susp_outbound_kerberos_connection.yml",
     "upstream_path": "rules/windows/network_connection/net_connection_win_susp_outbound_kerberos_connection.yml"
@@ -36715,7 +36715,7 @@
     ],
     "author": "Nasreddine Bencherchali (Nextron Systems), memory-shards",
     "date": "2022-12-24",
-    "modified": "2024-08-07",
+    "modified": "2026-11-05",
     "description": "Detects execution of the AgentExecutor.exe binary. Which can be abused as a LOLBIN to execute powershell scripts with the ExecutionPolicy \"Bypass\" or any binary named \"powershell.exe\" located in the path provided by 6th positional argument",
     "path": "rules/windows/process_creation/proc_creation_win_agentexecutor_potential_abuse.yml",
     "upstream_path": "rules/windows/process_creation/proc_creation_win_agentexecutor_potential_abuse.yml"
@@ -43506,10 +43506,10 @@
       "attack.discovery",
       "attack.t1518.001"
     ],
-    "author": "Nasreddine Bencherchali (Nextron Systems), frack113",
+    "author": "Nasreddine Bencherchali (Nextron Systems), frack113, MalGamy (Nextron Systems)",
     "date": "2023-10-20",
-    "modified": "2023-11-14",
-    "description": "Detects execution of \"findstr\" to search for common names of security tools. Attackers often pipe the results of recon commands such as \"tasklist\" or \"whoami\" to \"findstr\" in order to filter out the results.\nThis detection focuses on the keywords that the attacker might use as a filter.",
+    "modified": "2026-11-06",
+    "description": "Detects execution of \"findstr\" or \"find\" to search for common names of security tools. Attackers often pipe the results of recon commands such as \"tasklist\" or \"whoami\" to \"findstr\" in order to filter out the results.\nThis detection focuses on the keywords that the attacker might use as a filter.",
     "path": "rules/windows/process_creation/proc_creation_win_findstr_security_keyword_lookup.yml",
     "upstream_path": "rules/windows/process_creation/proc_creation_win_findstr_security_keyword_lookup.yml"
   },
@@ -45686,7 +45686,7 @@
     ],
     "author": "Nasreddine Bencherchali (Nextron Systems)",
     "date": "2022-09-05",
-    "modified": "2023-02-05",
+    "modified": "2026-11-05",
     "description": "Detects usage of the Quarks PwDump tool via commandline arguments",
     "path": "rules/windows/process_creation/proc_creation_win_hktl_quarks_pwdump.yml",
     "upstream_path": "rules/windows/process_creation/proc_creation_win_hktl_quarks_pwdump.yml"
@@ -54680,7 +54680,7 @@
     ],
     "author": "Roberto Rodriguez @Cyb3rWard0g (rule), oscd.community (improvements)",
     "date": "2019-09-12",
-    "modified": "2025-02-28",
+    "modified": "2026-11-05",
     "description": "Detects non-interactive PowerShell activity by looking at the \"powershell\" process with a non-user GUI process such as \"explorer.exe\" as a parent.",
     "path": "rules/windows/process_creation/proc_creation_win_powershell_non_interactive_execution.yml",
     "upstream_path": "rules/windows/process_creation/proc_creation_win_powershell_non_interactive_execution.yml"
@@ -54902,7 +54902,7 @@
     ],
     "author": "Florian Roth (Nextron Systems), Max Altgelt (Nextron Systems), Tim Shelton",
     "date": "2021-07-14",
-    "modified": "2026-02-17",
+    "modified": "2026-11-04",
     "description": "Detects a potentially suspicious powershell script executions from temporary folder",
     "path": "rules/windows/process_creation/proc_creation_win_powershell_script_exec_from_temp_folder.yml",
     "upstream_path": "rules/windows/process_creation/proc_creation_win_powershell_script_exec_from_temp_folder.yml"
@@ -58905,7 +58905,7 @@
     ],
     "author": "Josh Nickels, Qi Nan",
     "date": "2024-03-11",
-    "modified": "",
+    "modified": "2026-11-05",
     "description": "Detects the command line executed when TeamViewer starts a session started by a remote host.\nOnce a connection has been started, an investigator can verify the connection details by viewing the \"incoming_connections.txt\" log file in the TeamViewer folder.",
     "path": "rules/windows/process_creation/proc_creation_win_remote_access_tools_teamviewer_incoming_connection.yml",
     "upstream_path": "rules/windows/process_creation/proc_creation_win_remote_access_tools_teamviewer_incoming_connection.yml"
@@ -75451,7 +75451,7 @@
     ],
     "author": "Ilyas Ochkov, oscd.community",
     "date": "2019-10-25",
-    "modified": "2021-11-27",
+    "modified": "2026-11-05",
     "description": "Dynamic-link libraries (DLLs) that are specified in the AppCertDLLs value in the Registry key can be abused to obtain persistence and privilege escalation\nby causing a malicious DLL to be loaded and run in the context of separate processes on the computer.",
     "path": "rules/windows/registry_event/registry_event_new_dll_added_to_appcertdlls_registry_key.yml",
     "upstream_path": "rules/windows/registry/registry_event/registry_event_new_dll_added_to_appcertdlls_registry_key.yml"
@@ -77299,7 +77299,7 @@
     ],
     "author": "frack113, Nasreddine Bencherchali (Nextron Systems)",
     "date": "2022-07-04",
-    "modified": "2024-03-25",
+    "modified": "2026-11-06",
     "description": "Detects tampering with the \"Enabled\" registry key in order to disable Windows logging of a Windows event channel",
     "path": "rules/windows/registry_set/registry_set_disable_winevt_logging.yml",
     "upstream_path": "rules/windows/registry/registry_set/registry_set_disable_winevt_logging.yml"
