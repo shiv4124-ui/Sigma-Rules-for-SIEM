@@ -57152,7 +57152,7 @@
     ],
     "author": "Teymur Kheirkhabarov, Endgame, JHasenbusch, Daniil Yugoslavskiy, oscd.community, frack113",
     "date": "2019-10-22",
-    "modified": "2023-12-13",
+    "modified": "2026-11-13",
     "description": "Detects the usage of \"reg.exe\" in order to dump sensitive registry hives. This includes SAM, SYSTEM and SECURITY hives.",
     "path": "rules/windows/process_creation/proc_creation_win_reg_dumping_sensitive_hives.yml",
     "upstream_path": "rules/windows/process_creation/proc_creation_win_reg_dumping_sensitive_hives.yml"
@@ -75684,7 +75684,7 @@
     ],
     "author": "Christian Burkard (Nextron Systems)",
     "date": "2021-08-30",
-    "modified": "2026-08-27",
+    "modified": "2026-11-12",
     "description": "Detects manipulation of shell open command registry keys such as \"ms-settings\" and \"exefile\",\nwhich are commonly abused to achieve UAC bypass (e.g. via fodhelper.exe) or establish persistence\nthrough file association hijacking.",
     "path": "rules/windows/registry_event/registry_event_shell_open_keys_manipulation.yml",
     "upstream_path": "rules/windows/registry/registry_event/registry_event_shell_open_keys_manipulation.yml"
@@ -76007,7 +76007,7 @@
     ],
     "author": "Nasreddine Bencherchali (Nextron Systems)",
     "date": "2023-01-04",
-    "modified": "2023-08-17",
+    "modified": "2026-11-12",
     "description": "Detects changes to the AMSI come server registry key in order disable AMSI scanning functionalities. When AMSI attempts to starts its COM component, it will query its registered CLSID and return a non-existent COM server. This causes a load failure and prevents any scanning methods from being accessed, ultimately rendering AMSI useless",
     "path": "rules/windows/registry_set/registry_set_amsi_com_hijack.yml",
     "upstream_path": "rules/windows/registry/registry_set/registry_set_amsi_com_hijack.yml"
@@ -76536,7 +76536,7 @@
     ],
     "author": "frack113",
     "date": "2022-01-01",
-    "modified": "2024-03-25",
+    "modified": "2026-11-12",
     "description": "Detects changes to the default RDP port.\nRemote desktop is a common feature in operating systems. It allows a user to log into a remote system using an interactive session with a graphical user interface.\nMicrosoft refers to its implementation of the Remote Desktop Protocol (RDP) as Remote Desktop Services (RDS).",
     "path": "rules/windows/registry_set/registry_set_change_rdp_port.yml",
     "upstream_path": "rules/windows/registry/registry_set/registry_set_change_rdp_port.yml"
@@ -77892,7 +77892,7 @@
     ],
     "author": "Nasreddine Bencherchali (Nextron Systems)",
     "date": "2022-07-21",
-    "modified": "2023-08-17",
+    "modified": "2026-11-12",
     "description": "Detects when an attacker modifies the registry value of the \"hhctrl\" to point to a custom binary",
     "path": "rules/windows/registry_set/registry_set_hhctrl_persistence.yml",
     "upstream_path": "rules/windows/registry/registry_set/registry_set_hhctrl_persistence.yml"
@@ -79046,7 +79046,7 @@
     ],
     "author": "BlackBerry Threat Research and Intelligence Team - @Joseliyo_Jstnk",
     "date": "2023-06-07",
-    "modified": "2023-08-17",
+    "modified": "2026-11-12",
     "description": "Detects changes to the PSFactory COM InProcServer32 registry. This technique was used by RomCom to create persistence storing a malicious DLL.",
     "path": "rules/windows/registry_set/registry_set_persistence_comhijack_psfactorybuffer.yml",
     "upstream_path": "rules/windows/registry/registry_set/registry_set_persistence_comhijack_psfactorybuffer.yml"
@@ -80477,7 +80477,7 @@
     ],
     "author": "Syed Hasan (@syedhasan009)",
     "date": "2021-06-18",
-    "modified": "2025-10-22",
+    "modified": "2026-11-12",
     "description": "Monitor the creation of a new key under 'TaskCache' when a new scheduled task is registered by a process that is not svchost.exe, which is suspicious",
     "path": "rules/windows/registry_set/registry_set_taskcache_entry.yml",
     "upstream_path": "rules/windows/registry/registry_set/registry_set_taskcache_entry.yml"
@@ -80547,7 +80547,7 @@
     ],
     "author": "Samir Bousseaden, David ANDRE, Roberto Rodriguez @Cyb3rWard0g, Nasreddine Bencherchali",
     "date": "2022-08-06",
-    "modified": "2025-11-22",
+    "modified": "2026-11-12",
     "description": "Detects tampering of RDP Terminal Service/Server sensitive settings.\nSuch as allowing unauthorized users access to a system via the 'fAllowUnsolicited' or enabling RDP via 'fDenyTSConnections', etc.\n\nBelow is a list of registry keys/values that are monitored by this rule:\n\n- Shadow: Used to enable Remote Desktop shadowing, which allows an administrator to view or control a user's session.\n- DisableRemoteDesktopAntiAlias: Disables anti-aliasing for remote desktop sessions.\n- DisableSecuritySettings: Disables certain security settings for Remote Desktop connections.\n- fAllowUnsolicited: Allows unsolicited remote assistance offers.\n- fAllowUnsolicitedFullControl: Allows unsolicited remote assistance offers with full control.\n- InitialProgram: Specifies a program to run automatically when a user logs on to a remote computer.\n- ServiceDll: Used in RDP hijacking techniques to specify a custom DLL to be loaded by the Terminal Services service.\n- SecurityLayer: Specifies the security layer used for RDP connections.",
     "path": "rules/windows/registry_set/registry_set_terminal_server_tampering.yml",
     "upstream_path": "rules/windows/registry/registry_set/registry_set_terminal_server_tampering.yml"
@@ -80681,7 +80681,7 @@
     ],
     "author": "Omer Yampel, Christian Burkard (Nextron Systems)",
     "date": "2017-03-17",
-    "modified": "2023-08-17",
+    "modified": "2026-11-12",
     "description": "Detects the pattern of UAC Bypass using registry key manipulation of sdclt.exe (e.g. UACMe 53)",
     "path": "rules/windows/registry_set/registry_set_uac_bypass_sdclt.yml",
     "upstream_path": "rules/windows/registry/registry_set/registry_set_uac_bypass_sdclt.yml"
@@ -83577,7 +83577,7 @@
     "author": "Mauricio Velazco, Michael Haag",
     "date": "2021-09-02",
     "modified": "2022-10-05",
-    "description": "Detect suspicious Kerberos TGT requests.\nOnce an attacer obtains a computer certificate by abusing Active Directory Certificate Services in combination with PetitPotam, the next step would be to leverage the certificate for malicious purposes.\nOne way of doing this is to request a Kerberos Ticket Granting Ticket using a tool like Rubeus.\nThis request will generate a 4768 event with some unusual fields depending on the environment.\nThis analytic will require tuning, we recommend filtering Account_Name to the Domain Controller computer accounts.",
+    "description": "Detect suspicious Kerberos TGT requests.\nOnce an attacker obtains a computer certificate by abusing Active Directory Certificate Services in combination with PetitPotam, the next step would be to leverage the certificate for malicious purposes.\nOne way of doing this is to request a Kerberos Ticket Granting Ticket using a tool like Rubeus.\nThis request will generate a 4768 event with some unusual fields depending on the environment.\nThis analytic will require tuning, we recommend filtering Account_Name to the Domain Controller computer accounts.",
     "path": "rules/windows/security/win_security_petitpotam_susp_tgt_request.yml",
     "upstream_path": "rules/windows/builtin/security/win_security_petitpotam_susp_tgt_request.yml"
   },
