@@ -1,8 +1,8 @@
 {
   "upstream_repo": "SigmaHQ/sigma",
   "upstream_branch": "master",
-  "upstream_commit": "088855f00b65a19e345b09c1619272b44f92fea4",
-  "fetched_at": "2026-11-17T10:53:17+00:00",
+  "upstream_commit": "698f0912f571d5fac3bf8c51f5421139834a011c",
+  "fetched_at": "2026-11-19T10:32:05+00:00",
   "layout": "platform",
   "rule_files": 3807,
   "indexed_rules": 3807,

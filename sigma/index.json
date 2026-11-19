@@ -6463,7 +6463,7 @@
     "author": "Mark Morowczynski '@markmorow', Yochana Henderson, '@Yochana-H'",
     "date": "2022-08-11",
     "modified": "2023-12-15",
-    "description": "Detects failed sign-in due to user not meeting expected controls for adminitrators",
+    "description": "Detects failed sign-in due to user not meeting expected controls for administrators",
     "path": "rules/cloud/azure/azure_privileged_account_sigin_expected_controls.yml",
     "upstream_path": "rules-placeholder/cloud/azure/signin_logs/azure_privileged_account_sigin_expected_controls.yml"
   },
@@ -8042,7 +8042,7 @@
     "author": "Muhammad Faisal (@faisalusuf)",
     "date": "2023-10-25",
     "modified": "2026-04-27",
-    "description": "Detects new user account creation or activation with specific names related to the Okta Support System 2023 breach.\nThis rule can be enhanced by filtering out known and legitimate username used in your environnement.",
+    "description": "Detects new user account creation or activation with specific names related to the Okta Support System 2023 breach.\nThis rule can be enhanced by filtering out known and legitimate username used in your environment.",
     "path": "rules/cloud/okta/okta_apt_suspicious_user_creation.yml",
     "upstream_path": "rules-emerging-threats/2023/TA/Okta-Support-System-Breach/okta_apt_suspicious_user_creation.yml"
   },
@@ -13448,7 +13448,7 @@
     "author": "Alejandro Ortuno, oscd.community, Georg Lauenstein (sure[secure])",
     "date": "2020-10-21",
     "modified": "2024-09-19",
-    "description": "Detects execution of network scanning and reconnaisance tools. These tools can be used for the enumeration of local or remote network services for example.",
+    "description": "Detects execution of network scanning and reconnaissance tools. These tools can be used for the enumeration of local or remote network services for example.",
     "path": "rules/linux/process_creation/proc_creation_lnx_susp_network_utilities_execution.yml",
     "upstream_path": "rules/linux/process_creation/proc_creation_lnx_susp_network_utilities_execution.yml"
   },
@@ -19402,7 +19402,7 @@
     "author": "Florian Roth (Nextron Systems)",
     "date": "2021-01-07",
     "modified": "2023-01-02",
-    "description": "Detects exploitation attempts on Cisco ASA FTD systems exploiting CVE-2020-3452 with a status code of 200 (sccessful exploitation)",
+    "description": "Detects exploitation attempts on Cisco ASA FTD systems exploiting CVE-2020-3452 with a status code of 200 (successful exploitation)",
     "path": "rules/web/webserver/web_cve_2020_3452_cisco_asa_ftd.yml",
     "upstream_path": "rules-emerging-threats/2020/Exploits/CVE-2020-3452/web_cve_2020_3452_cisco_asa_ftd.yml"
   },
@@ -25510,7 +25510,7 @@
     "author": "Nasreddine Bencherchali (Nextron Systems)",
     "date": "2024-06-24",
     "modified": "",
-    "description": "Detects the creation of a file with the \".dll\" extension that has the name of a System DLL in uncommon or unsuspected locations. (Outisde of \"System32\", \"SysWOW64\", etc.).\nIt is highly recommended to perform an initial baseline before using this rule in production.",
+    "description": "Detects the creation of a file with the \".dll\" extension that has the name of a System DLL in uncommon or unsuspected locations. (Outside of \"System32\", \"SysWOW64\", etc.).\nIt is highly recommended to perform an initial baseline before using this rule in production.",
     "path": "rules/windows/file_event/file_event_win_creation_system_dll_files.yml",
     "upstream_path": "rules/windows/file/file_event/file_event_win_creation_system_dll_files.yml"
   },
@@ -26946,7 +26946,7 @@
     "author": "Micah Babinski",
     "date": "2023-10-15",
     "modified": "",
-    "description": "Detects the usage of curl.exe, KeyScramblerLogon, or other non-standard/suspicious processes used to create Autoit3.exe.\nThis activity has been associated with DarkGate malware, which uses Autoit3.exe to execute shellcode that performs\nprocess injection and connects to the DarkGate command-and-control server. Curl, KeyScramblerLogon, and these other\nprocesses consitute non-standard and suspicious ways to retrieve the Autoit3 executable.",
+    "description": "Detects the usage of curl.exe, KeyScramblerLogon, or other non-standard/suspicious processes used to create Autoit3.exe.\nThis activity has been associated with DarkGate malware, which uses Autoit3.exe to execute shellcode that performs\nprocess injection and connects to the DarkGate command-and-control server. Curl, KeyScramblerLogon, and these other\nprocesses constitute non-standard and suspicious ways to retrieve the Autoit3 executable.",
     "path": "rules/windows/file_event/file_event_win_malware_darkgate_autoit3_binary_creation.yml",
     "upstream_path": "rules-emerging-threats/2023/Malware/DarkGate/file_event_win_malware_darkgate_autoit3_binary_creation.yml"
   },
@@ -31306,7 +31306,7 @@
     "author": "Swachchhanda Shrawan Poudel",
     "date": "2024-07-31",
     "modified": "",
-    "description": "Detects potential sideloading of malicious \"aclui.dll\" by OleView.This behavior was observed in Raspberry-Robin variants reported by chekpoint research on Feburary 2024.",
+    "description": "Detects potential sideloading of malicious \"aclui.dll\" by OleView.This behavior was observed in Raspberry-Robin variants reported by Check Point Research on February 2024.",
     "path": "rules/windows/image_load/image_load_malware_raspberry_robin_side_load_aclui_oleview.yml",
     "upstream_path": "rules-emerging-threats/2024/Malware/Raspberry-Robin/image_load_malware_raspberry_robin_side_load_aclui_oleview.yml"
   },
@@ -33870,7 +33870,7 @@
     "author": "CertainlyP",
     "date": "2024-04-26",
     "modified": "",
-    "description": "Detects outbound network connection initiated by Microsoft Dialer.\nThe Microsoft Dialer, also known as Phone Dialer, is a built-in utility application included in various versions of the Microsoft Windows operating system. Its primary function is to provide users with a graphical interface for managing phone calls via a modem or a phone line connected to the computer.\nThis is an outdated process in the current conext of it's usage and is a common target for info stealers for process injection, and is used to make C2 connections, common example is \"Rhadamanthys\"",
+    "description": "Detects outbound network connection initiated by Microsoft Dialer.\nThe Microsoft Dialer, also known as Phone Dialer, is a built-in utility application included in various versions of the Microsoft Windows operating system. Its primary function is to provide users with a graphical interface for managing phone calls via a modem or a phone line connected to the computer.\nThis is an outdated process in the current context of it's usage and is a common target for info stealers for process injection, and is used to make C2 connections, common example is \"Rhadamanthys\"",
     "path": "rules/windows/network_connection/net_connection_win_dialer_initiated_connection.yml",
     "upstream_path": "rules/windows/network_connection/net_connection_win_dialer_initiated_connection.yml"
   },
@@ -34665,7 +34665,7 @@
     "author": "frack113",
     "date": "2024-04-25",
     "modified": "",
-    "description": "Detects \"RegAsm.exe\" initiating a network connection to public IP adresses",
+    "description": "Detects \"RegAsm.exe\" initiating a network connection to public IP addresses",
     "path": "rules/windows/network_connection/net_connection_win_regasm_network_activity.yml",
     "upstream_path": "rules/windows/network_connection/net_connection_win_regasm_network_activity.yml"
   },
@@ -49003,7 +49003,7 @@
     "author": "Florian Roth (Nextron Systems), oscd.community, Nasreddine Bencherchali (Nextron Systems)",
     "date": "2019-01-10",
     "modified": "2023-02-03",
-    "description": "Detects potential Dridex acitvity via specific process patterns",
+    "description": "Detects potential Dridex activity via specific process patterns",
     "path": "rules/windows/process_creation/proc_creation_win_malware_dridex.yml",
     "upstream_path": "rules-emerging-threats/2019/Malware/Dridex/proc_creation_win_malware_dridex.yml"
   },
@@ -62409,7 +62409,7 @@
     "author": "Florian Roth (Nextron Systems)",
     "date": "2022-06-07",
     "modified": "",
-    "description": "Detects cases in which an ISO files is opend within an archiver like 7Zip or Winrar, which is a sign of phishing as threat actors put small ISO files in archives as email attachments to bypass certain filters and protective measures (mark of web)",
+    "description": "Detects cases in which an ISO files is opened within an archiver like 7Zip or Winrar, which is a sign of phishing as threat actors put small ISO files in archives as email attachments to bypass certain filters and protective measures (mark of web)",
     "path": "rules/windows/process_creation/proc_creation_win_susp_archiver_iso_phishing.yml",
     "upstream_path": "rules/windows/process_creation/proc_creation_win_susp_archiver_iso_phishing.yml"
   },
@@ -63791,7 +63791,7 @@
     "author": "Nasreddine Bencherchali (Nextron Systems), Swachchhanda Shrawan Poudel",
     "date": "2023-11-09",
     "modified": "",
-    "description": "Detects usage of the \"ms-appinstaller\" protocol handler via command line to potentially download arbitrary files via AppInstaller.EXE\nThe downloaded files are temporarly stored in \":\\Users\\%username%\\AppData\\Local\\Packages\\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\\AC\\INetCache\\<RANDOM-8-CHAR-DIRECTORY>\"",
+    "description": "Detects usage of the \"ms-appinstaller\" protocol handler via command line to potentially download arbitrary files via AppInstaller.EXE\nThe downloaded files are temporarily stored in \":\\Users\\%username%\\AppData\\Local\\Packages\\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\\AC\\INetCache\\<RANDOM-8-CHAR-DIRECTORY>\"",
     "path": "rules/windows/process_creation/proc_creation_win_susp_ms_appinstaller_download.yml",
     "upstream_path": "rules/windows/process_creation/proc_creation_win_susp_ms_appinstaller_download.yml"
   },
@@ -76514,7 +76514,7 @@
     "author": "frack113, Nextron Systems",
     "date": "2022-01-06",
     "modified": "2024-01-30",
-    "description": "Detects the setting of the environement variable \"windir\" to a non default value.\nAttackers often abuse this variable in order to trigger a UAC bypass via the \"SilentCleanup\" task.\nThe SilentCleanup task located in %windir%\\system32\\cleanmgr.exe is an auto-elevated task that can be abused to elevate any file with administrator privileges without prompting UAC.",
+    "description": "Detects the setting of the environment variable \"windir\" to a non default value.\nAttackers often abuse this variable in order to trigger a UAC bypass via the \"SilentCleanup\" task.\nThe SilentCleanup task located in %windir%\\system32\\cleanmgr.exe is an auto-elevated task that can be abused to elevate any file with administrator privileges without prompting UAC.",
     "path": "rules/windows/registry_set/registry_set_bypass_uac_using_silentcleanup_task.yml",
     "upstream_path": "rules/windows/registry/registry_set/registry_set_bypass_uac_using_silentcleanup_task.yml"
   },
@@ -76580,7 +76580,7 @@
     ],
     "author": "B.Talebi",
     "date": "2022-07-28",
-    "modified": "2024-03-25",
+    "modified": "2026-11-16",
     "description": "Detects changes in Sysmon driver altitude value.\nIf the Sysmon driver is configured to load at an altitude of another registered service, it will fail to load at boot.",
     "path": "rules/windows/registry_set/registry_set_change_sysmon_driver_altitude.yml",
     "upstream_path": "rules/windows/registry/registry_set/registry_set_change_sysmon_driver_altitude.yml"
@@ -77828,7 +77828,7 @@
     ],
     "author": "Andreas Hunkeler (@Karneades)",
     "date": "2021-11-19",
-    "modified": "2023-08-17",
+    "modified": "2026-11-16",
     "description": "Detects the abuse of the exefile handler in new file association. Used for bypass of security products.",
     "path": "rules/windows/registry_set/registry_set_file_association_exefile.yml",
     "upstream_path": "rules/windows/registry/registry_set/registry_set_file_association_exefile.yml"
@@ -78956,7 +78956,7 @@
     ],
     "author": "Nasreddine Bencherchali (Nextron Systems)",
     "date": "2022-08-10",
-    "modified": "2023-08-17",
+    "modified": "2026-11-16",
     "description": "Detects change the the \"AutodialDLL\" key which could be used as a persistence method to load custom DLL via the \"ws2_32\" library",
     "path": "rules/windows/registry_set/registry_set_persistence_autodial_dll.yml",
     "upstream_path": "rules/windows/registry/registry_set/registry_set_persistence_autodial_dll.yml"
@@ -79247,7 +79247,7 @@
     ],
     "author": "Nasreddine Bencherchali (Nextron Systems)",
     "date": "2022-08-09",
-    "modified": "2024-01-11",
+    "modified": "2026-11-16",
     "description": "Detects modification to the \"Default\" value of the \"MyComputer\" key and subkeys to point to a custom binary that will be launched whenever the associated action is executed (see reference section for example)",
     "path": "rules/windows/registry_set/registry_set_persistence_mycomputer.yml",
     "upstream_path": "rules/windows/registry/registry_set/registry_set_persistence_mycomputer.yml"

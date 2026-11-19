@@ -40575,7 +40575,7 @@
     "level": "high",
     "status": "test",
     "path": "rules/windows/registry_set/registry_set_change_sysmon_driver_altitude.yml",
-    "expression": "(containAny(registry_key, '\\\\Services\\\\') and endsWithAny(registry_key, '\\\\Instances\\\\Sysmon Instance\\\\Altitude'))",
+    "expression": "(containAny(registry_key, '\\\\Services\\\\') and endsWithAny(registry_key, '\\\\Instances\\\\Sysmon Instance\\\\Altitude')) and not equalsAny(registry_value, 385201)",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
@@ -41223,7 +41223,7 @@
     "level": "high",
     "status": "test",
     "path": "rules/windows/registry_set/registry_set_file_association_exefile.yml",
-    "expression": "(containAny(registry_key, 'Classes\\\\.') and equalsAny(registry_value, 'exefile'))",
+    "expression": "(containAny(registry_key, 'Classes\\\\.') and equalsAny(registry_value, 'exefile')) and not endsWithAny(registry_key, 'Classes\\\\.exe\\\\(Default)')",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
@@ -41823,7 +41823,7 @@
     "level": "high",
     "status": "test",
     "path": "rules/windows/registry_set/registry_set_persistence_autodial_dll.yml",
-    "expression": "containAny(registry_key, '\\\\Services\\\\WinSock2\\\\Parameters\\\\AutodialDLL')",
+    "expression": "containAny(registry_key, '\\\\Services\\\\WinSock2\\\\Parameters\\\\AutodialDLL') and not equalsAny(registry_value, '%%SystemRoot%%\\\\System32\\\\rasadhlp.dll', '%%SystemRoot%%\\\\SysWOW64\\\\rasadhlp.dll', '%%windir%%\\\\System32\\\\rasadhlp.dll', '%%windir%%\\\\SysWOW64\\\\rasadhlp.dll', '%SystemRoot%\\\\System32\\\\rasadhlp.dll', '%SystemRoot%\\\\SysWOW64\\\\rasadhlp.dll', '%windir%\\\\System32\\\\rasadhlp.dll', '%windir%\\\\SysWOW64\\\\rasadhlp.dll', 'C:\\\\Windows\\\\System32\\\\rasadhlp.dll', 'C:\\\\Windows\\\\SysWOW64\\\\rasadhlp.dll')",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
@@ -41979,7 +41979,7 @@
     "level": "high",
     "status": "test",
     "path": "rules/windows/registry_set/registry_set_persistence_mycomputer.yml",
-    "expression": "(containAny(registry_key, '\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Explorer\\\\MyComputer') and endsWithAny(registry_key, '(Default)'))",
+    "expression": "(containAny(registry_key, '\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Explorer\\\\MyComputer') and endsWithAny(registry_key, 'path\\\\(Default)')) and not (startsWithAny(registry_value, '%%SystemRoot%%\\\\', '%%Windir%%\\\\', '%SystemRoot%\\\\', '%Windir%\\\\', 'C:\\\\Windows\\\\') and ((endsWithAny(registry_key, '\\\\MyComputer\\\\BackupPath\\\\(Default)') and endsWithAny(registry_value, '\\\\System32\\\\sdclt.exe', '\\\\SysWOW64\\\\sdclt.exe')) or (endsWithAny(registry_key, '\\\\MyComputer\\\\cleanuppath\\\\(Default)') and endsWithAny(registry_value, '\\\\System32\\\\cleanmgr.exe /D %c', '\\\\SysWOW64\\\\cleanmgr.exe /D %c', '\\\\System32\\\\cleanmgr.exe /D %%c', '\\\\SysWOW64\\\\cleanmgr.exe /D %%c')) or (endsWithAny(registry_key, '\\\\MyComputer\\\\DefragPath\\\\(Default)') and endsWithAny(registry_value, '\\\\System32\\\\dfrgui.exe', '\\\\SysWOW64\\\\dfrgui.exe'))))",
     "keywords": [],
     "keywords_regex": "",
     "conversion": "ok"
